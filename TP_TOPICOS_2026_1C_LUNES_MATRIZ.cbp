@@ -13,7 +13,12 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
+					<Add directory="lib" />
 				</Compiler>
+				<Linker>
+					<Add library="lib/libgbt.a" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/TP_TOPICOS_2026_1C_LUNES_MATRIZ" prefix_auto="1" extension_auto="1" />

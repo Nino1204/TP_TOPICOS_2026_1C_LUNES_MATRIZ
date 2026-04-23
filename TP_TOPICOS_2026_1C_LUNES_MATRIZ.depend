@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1776982024 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\main.c
+	<stdio.h>
+	<stdlib.h>
+	"GBT/gbt.h"
+
+1776646998 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1776646998 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1776646998 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1776646998 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_logger.h
+
+1776646998 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1776646998 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
