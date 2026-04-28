@@ -36,6 +36,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="imagenes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="imagenes.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
