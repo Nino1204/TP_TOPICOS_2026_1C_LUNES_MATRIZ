@@ -56,3 +56,60 @@
 1777925556 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\formas.h
 	"mapa.h"
 
+1778450248 source:c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\imagenes.c
+	"imagenes.h"
+
+1778450247 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\imagenes.h
+
+1778450248 source:c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\utils.c
+	"utils.h"
+	<ctype.h>
+	<string.h>
+	"GBT/gbt.h"
+	"imagenes.h"
+
+1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\utils.h
+
+1778444607 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778444607 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778444607 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778444607 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_logger.h
+
+1778444607 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778444607 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778452338 source:c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\formas.c
+	"formas.h"
+	"utils.h"
+	"imagenes.h"
+
+1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\formas.h
+	"mapa.h"
+
+1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\mapa.h
+
+1778452356 source:c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\juego.c
+	"juego.h"
+	<stdio.h>
+	"GBT/gbt.h"
+	"imagenes.h"
+	"utils.h"
+	"mapa.h"
+	"formas.h"
+
+1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\juego.h
+

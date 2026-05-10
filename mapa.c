@@ -79,11 +79,41 @@ void mapa_dibujar(mapa_t mapa, int ox,int oy)
 
     //convertir el puntero en una matriz, para poder
     //recorrerlo mas facil
-    unsigned char (*tablero)[mapa.ancho] = mapa.tablero;
+    unsigned char (*tab)[mapa.ancho] = (unsigned char (*)[mapa.ancho]) mapa.tablero; //
 
     unsigned char bloque_id;
 
     //paso por cada bloque y si no esta vacio lo dibujo
+    for (int y = 0; y < mapa.alto; y++)
+    {
+        for (int x = 0; x < mapa.ancho; x++)
+        {
+            bloque_id = tab[y][x];
+
+            if (bloque_id > 0)
+            {
+                bloque_id--;
+                utils_dibujar_imagen(
+                    ox+x*MAPA_BLOQUE_TAM,
+                    oy+y*MAPA_BLOQUE_TAM,
+                    MAPA_BLOQUE_TAM,MAPA_BLOQUE_TAM,(unsigned char(*)[8])
+                    Imagenes_ObtenerPixeles(IMAGENES_ID_BLOQUES, bloque_id)
+                );
+            }
+        }
+    }
+
+}
+void mapa_dibujar_sombra(mapa_t mapa, int ox,int oy) //dibujar el mapa en negro con un origen x e y
+{
+
+    //lo mismo que la funcion anterior
+    //pero usa utils_dibujar_imagen_sombra
+
+    unsigned char (*tablero)[mapa.ancho] = (unsigned char (*)[mapa.ancho]) mapa.tablero;
+
+    unsigned char bloque_id;
+
     for (int y = 0; y < mapa.alto; y++)
     {
         for (int x = 0; x < mapa.ancho; x++)
@@ -93,20 +123,19 @@ void mapa_dibujar(mapa_t mapa, int ox,int oy)
             if (bloque_id > 0)
             {
                 bloque_id--;
-                utils_dibujar_imagen(
+                utils_dibujar_imagen_sombra(
                     ox+x*MAPA_BLOQUE_TAM,
                     oy+y*MAPA_BLOQUE_TAM,
-                    MAPA_BLOQUE_TAM,MAPA_BLOQUE_TAM,
+                    MAPA_BLOQUE_TAM,MAPA_BLOQUE_TAM,(unsigned char(*)[8])
                     Imagenes_ObtenerPixeles(IMAGENES_ID_BLOQUES, bloque_id)
                 );
             }
         }
     }
-
 }
 int mapa_linea_llena(mapa_t mapa, unsigned linea)
 {
-    unsigned char (*tablero)[mapa.ancho] = mapa.tablero;
+    unsigned char (*tablero)[mapa.ancho] = (unsigned char (*)[mapa.ancho]) mapa.tablero;
     for (int x = 0; x < mapa.ancho; x++)
     {
         if (tablero[linea][x] == 0)
@@ -117,7 +146,7 @@ int mapa_linea_llena(mapa_t mapa, unsigned linea)
 void mapa_revisar_lineas(mapa_t mapa)
 {
 
-    unsigned char (*tablero)[mapa.ancho] = mapa.tablero;
+    unsigned char (*tablero)[mapa.ancho] = (unsigned char (*)[mapa.ancho]) mapa.tablero;
 
     for (int y = 0; y < mapa.alto; y++)
     {
@@ -128,6 +157,18 @@ void mapa_revisar_lineas(mapa_t mapa)
             for (int x = 0; x < mapa.ancho; x++)
                 tablero[j][x] = tablero[j-1][x];
         }
+    }
+
+}
+void mapa_eliminar_linea(mapa_t mapa, unsigned linea)
+{
+
+    unsigned char (*tablero)[mapa.ancho] = (unsigned char (*)[mapa.ancho]) mapa.tablero;
+
+    for (int j = linea; j > 0; j--)
+    {
+        for (int x = 0; x < mapa.ancho; x++)
+            tablero[j][x] = tablero[j-1][x];
     }
 
 }

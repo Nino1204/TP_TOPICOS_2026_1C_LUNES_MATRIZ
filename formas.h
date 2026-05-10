@@ -11,6 +11,7 @@
 
 typedef struct {
     int px,py;
+    unsigned char f_id;
     unsigned char desc[FORMA_ALTO][FORMA_ANCHO];
 } forma_t;
 
@@ -30,5 +31,8 @@ int forma_puede_bajar(forma_t forma, mapa_t mapa);
 int forma_puede_deslizar(forma_t forma, mapa_t mapa, int dir);
 int forma_puede_rotar(forma_t forma, mapa_t mapa);
 void forma_rotar(forma_t *forma);
+void forma_dibujar_vistaprevia(forma_t forma);
+void forma_dibujar_sombra(forma_t forma);
+int forma_tiene_colision(forma_t forma, mapa_t mapa);
 
 #endif // FORMAS_H_INCLUDED
