@@ -5,6 +5,7 @@
 		<Option title="TP_TOPICOS_2026_1C_LUNES_MATRIZ" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="Sources/;Sources/entidades/;Sources/extras/;Sources/pantallas/;Headers/;HeaderS/;HeaderS/entidades/;HeaderS/extras/;HeaderS/pantallas/" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/TP_TOPICOS_2026_1C_LUNES_MATRIZ" prefix_auto="1" extension_auto="1" />
@@ -38,27 +39,44 @@
 		</Compiler>
 		<Unit filename="formas.c">
 			<Option compilerVar="CC" />
+			<Option virtualFolder="Sources/entidades/" />
 		</Unit>
-		<Unit filename="formas.h" />
+		<Unit filename="formas.h">
+			<Option virtualFolder="HeaderS/entidades/" />
+		</Unit>
 		<Unit filename="imagenes.c">
 			<Option compilerVar="CC" />
+			<Option virtualFolder="Sources/extras/" />
 		</Unit>
 		<Unit filename="imagenes.h">
+			<Option virtualFolder="HeaderS/extras/" />
 			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="juego.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Sources/pantallas/" />
+		</Unit>
+		<Unit filename="juego.h">
+			<Option virtualFolder="HeaderS/pantallas/" />
 		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
+			<Option virtualFolder="Sources/" />
 		</Unit>
 		<Unit filename="mapa.c">
 			<Option compilerVar="CC" />
+			<Option virtualFolder="Sources/entidades/" />
 		</Unit>
 		<Unit filename="mapa.h">
+			<Option virtualFolder="HeaderS/entidades/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="utils.c">
 			<Option compilerVar="CC" />
+			<Option virtualFolder="Sources/extras/" />
 		</Unit>
 		<Unit filename="utils.h">
+			<Option virtualFolder="HeaderS/extras/" />
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Extensions />
