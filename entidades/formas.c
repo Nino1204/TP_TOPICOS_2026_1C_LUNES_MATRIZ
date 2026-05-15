@@ -1,5 +1,8 @@
 #include "formas.h"
 
+#include "../extras/utils.h"
+#include "../extras/imagenes.h"
+
 unsigned char forma_desc_l[4][4] = {
     { 0,2,0,0 },
     { 0,2,0,0 },
@@ -38,6 +41,7 @@ forma_t forma_crear(int px, int py, unsigned char forma_id)
 
     forma.px = px;
     forma.py = py;
+    forma.f_id = forma_id;
 
     unsigned char (*forma_desc)[4];
     switch (forma_id)
@@ -141,20 +145,7 @@ int forma_puede_deslizar(forma_t forma, mapa_t mapa, int dir)
 
     forma.px += dir;
 
-    for (int y = 0; y < 4; y++)
-    {
-        for (int x = 0; x < 4; x++)
-        {
-            int b = forma.desc[y][x];
-            int mx = forma.px+x;
-            int my = forma.py+y;
-            if (b == 0) continue;
-            if (mx < 0 || mx >= mapa.ancho) return 0;
-            if (!mapa_posicion_es_vacia(mapa, mx,my)) return 0;
-        }
-    }
-
-    return 1;
+    return !forma_tiene_colision(forma, mapa);
 
 }
 int forma_puede_rotar(forma_t forma, mapa_t mapa)
@@ -165,21 +156,7 @@ int forma_puede_rotar(forma_t forma, mapa_t mapa)
 
     forma_rotar(&forma_aux);
 
-    for (int y = 0; y < 4; y++)
-    {
-        for (int x = 0; x < 4; x++)
-        {
-            int b = forma_aux.desc[y][x];
-            if (b == 0) continue;
-            int mx = forma.px+x;
-            int my = forma.py+y;
-            if (mx < 0 || mx >= mapa.ancho) return 0;
-            if (my < 0 || my >= mapa.alto) return 0;
-            if (!mapa_posicion_es_vacia(mapa, mx,my)) return 0;
-        }
-    }
-
-    return 1;
+    return !forma_tiene_colision(forma_aux, mapa);
 
 }
 void forma_rotar(forma_t *forma)
@@ -203,5 +180,53 @@ void forma_rotar(forma_t *forma)
         }
 
     }
+
+}
+void forma_dibujar_vistaprevia(forma_t forma)
+{
+
+    for (int y = 0; y < 4; y++)
+    {
+        for (int x = 0; x < 4; x++)
+        {
+            int bloque_id = forma.desc[y][x];
+            if (bloque_id == 0) continue;
+            utils_dibujar_imagen(
+                forma.px+x*8,
+                forma.py+y*8, 8,8,
+                Imagenes_ObtenerPixeles(IMAGENES_ID_BLOQUES, bloque_id-1)
+            );
+        }
+    }
+
+}
+int forma_tiene_colision(forma_t forma, mapa_t mapa)
+{
+
+    unsigned char b_id;
+    unsigned mx,my;
+
+    for (int y = 0; y < FORMA_ALTO; y++)
+    {
+        for (int x = 0; x < FORMA_ANCHO; x++)
+        {
+
+            b_id = forma.desc[y][x];
+
+            if (b_id == 0) continue;
+
+            mx = forma.px+x;
+            my = forma.py+y;
+
+            if (mx >= mapa.ancho) return 1;
+            if (my >= mapa.alto) return 1;
+
+            if (!mapa_posicion_es_vacia(mapa, mx,my))
+                return 1;
+
+        }
+    }
+
+    return 0;
 
 }

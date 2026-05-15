@@ -1,12 +1,14 @@
 # depslib dependency file v1.0
-1777925850 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\main.c
+1778867557 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"GBT/gbt.h"
-	"imagenes.h"
-	"mapa.h"
-	"formas.h"
+	"extras/imagenes.h"
+	"extras/utils.h"
+	"extras/estado_global.h"
+	"pantallas/juego.h"
+	"pantallas/menuprinc.h"
 
 1776646998 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
 	"gbt_entrada.h"
@@ -30,29 +32,99 @@
 	<stdlib.h>
 	<stdint.h>
 
-1777925765 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\imagenes.c
+1777990891 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\imagenes.c
 	"imagenes.h"
 
 1777738324 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\imagenes.h
 
-1777925031 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\mapa.c
+1777993660 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\mapa.c
 	"mapa.h"
 	<stdlib.h>
 	<memory.h>
 	"utils.h"
 	"imagenes.h"
 
-1777922396 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\mapa.h
+1777935803 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\mapa.h
 
-1777919824 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\utils.h
+1777944828 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\utils.h
 
-1777924863 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\utils.c
+1777945512 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\utils.c
 	"utils.h"
+	<ctype.h>
 	"GBT/gbt.h"
+	"imagenes.h"
 
-1777925817 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\formas.c
+1777991400 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\formas.c
+	"formas.h"
+	"utils.h"
+	"imagenes.h"
+
+1777991159 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\formas.h
+	"mapa.h"
+
+1777937358 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\juego.h
+
+1777995144 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\juego.c
+	"juego.h"
+	"GBT/gbt.h"
+	"utils.h"
+	"mapa.h"
 	"formas.h"
 
-1777925556 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\formas.h
+1778860920 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
+
+1778867851 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
+
+1777937358 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
+
+1778869222 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
+	"imagenes.h"
+
+1778869391 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
+	"utils.h"
+	<ctype.h>
+	"GBT/gbt.h"
+	"imagenes.h"
+
+1778000859 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+	"formas.h"
+	"../extras/utils.h"
+	"../extras/imagenes.h"
+
+1777991159 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
 	"mapa.h"
+
+1777935803 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
+
+1778000893 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
+	"mapa.h"
+	<stdlib.h>
+	<memory.h>
+	"../extras/utils.h"
+	"../extras/imagenes.h"
+
+1778861363 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+	"juego.h"
+	<stdio.h>
+	"GBT/gbt.h"
+	"../extras/imagenes.h"
+	"../extras/utils.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
+
+1778873278 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
+	"menuprinc.h"
+	"GBT/gbt.h"
+	"../extras/utils.h"
+	"../extras/estado_global.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
+	<string.h>
+
+1778870036 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.h
+
+1778867611 source:c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
+	"estado_global.h"
+
+1778866884 c:\users\windows 10\documents\codeblocks\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
 

@@ -36,29 +36,39 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="formas.c">
+		<Unit filename="entidades/formas.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="formas.h" />
-		<Unit filename="imagenes.c">
+		<Unit filename="entidades/formas.h" />
+		<Unit filename="entidades/mapa.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="imagenes.h">
+		<Unit filename="entidades/mapa.h" />
+		<Unit filename="extras/estado_global.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="extras/estado_global.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="extras/imagenes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="extras/imagenes.h" />
+		<Unit filename="extras/utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="extras/utils.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="mapa.c">
+		<Unit filename="pantallas/juego.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="mapa.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="utils.c">
+		<Unit filename="pantallas/juego.h" />
+		<Unit filename="pantallas/menuprinc.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="utils.h">
+		<Unit filename="pantallas/menuprinc.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Extensions />

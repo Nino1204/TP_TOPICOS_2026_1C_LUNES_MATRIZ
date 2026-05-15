@@ -1,8 +1,8 @@
 #include "mapa.h"
 #include <stdlib.h>
 #include <memory.h>
-#include "utils.h"
-#include "imagenes.h"
+#include "../extras/utils.h"
+#include "../extras/imagenes.h"
 
 mapa_t mapa_crear(unsigned _ancho, unsigned _alto)
 {
@@ -104,6 +104,35 @@ void mapa_dibujar(mapa_t mapa, int ox,int oy)
     }
 
 }
+void mapa_dibujar_sombra(mapa_t mapa, int ox,int oy) //dibujar el mapa en negro con un origen x e y
+{
+
+    //lo mismo que la funcion anterior
+    //pero usa utils_dibujar_imagen_sombra
+
+    unsigned char (*tablero)[mapa.ancho] = mapa.tablero;
+
+    unsigned char bloque_id;
+
+    for (int y = 0; y < mapa.alto; y++)
+    {
+        for (int x = 0; x < mapa.ancho; x++)
+        {
+            bloque_id = tablero[y][x];
+
+            if (bloque_id > 0)
+            {
+                bloque_id--;
+                utils_dibujar_imagen_sombra(
+                    ox+x*MAPA_BLOQUE_TAM,
+                    oy+y*MAPA_BLOQUE_TAM,
+                    MAPA_BLOQUE_TAM,MAPA_BLOQUE_TAM,
+                    Imagenes_ObtenerPixeles(IMAGENES_ID_BLOQUES, bloque_id)
+                );
+            }
+        }
+    }
+}
 int mapa_linea_llena(mapa_t mapa, unsigned linea)
 {
     unsigned char (*tablero)[mapa.ancho] = mapa.tablero;
@@ -128,6 +157,18 @@ void mapa_revisar_lineas(mapa_t mapa)
             for (int x = 0; x < mapa.ancho; x++)
                 tablero[j][x] = tablero[j-1][x];
         }
+    }
+
+}
+void mapa_eliminar_linea(mapa_t mapa, unsigned linea)
+{
+
+    unsigned char (*tablero)[mapa.ancho] = mapa.tablero;
+
+    for (int j = linea; j > 0; j--)
+    {
+        for (int x = 0; x < mapa.ancho; x++)
+            tablero[j][x] = tablero[j-1][x];
     }
 
 }
