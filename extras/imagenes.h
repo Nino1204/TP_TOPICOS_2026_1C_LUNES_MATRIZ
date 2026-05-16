@@ -3,7 +3,8 @@
 
 enum {
     IMAGENES_ID_BLOQUES,
-    IMAGENES_ID_FUENTE
+    IMAGENES_ID_FUENTE8x8,
+    IMAGENES_ID_FUENTE8x16
 };
 
 unsigned char* Imagenes_ObtenerPixeles(unsigned char imagen_id, unsigned char offset_id);

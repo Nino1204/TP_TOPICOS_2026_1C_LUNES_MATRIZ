@@ -130,15 +130,14 @@
 	"../extras/utils.h"
 	"../extras/imagenes.h"
 
-1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
+1778960414 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
 	"imagenes.h"
 
-1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
+1778960387 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
 
-1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
+1778960366 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
 	"utils.h"
 	<ctype.h>
-	<string.h>
 	"GBT/gbt.h"
 	"imagenes.h"
 
@@ -175,7 +174,7 @@
 	"extras/utils.h"
 	"pantallas/juego.h"
 
-1778955752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+1778960239 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
 	"juego.h"
 	<stdio.h>
 	"GBT/gbt.h"
@@ -185,4 +184,31 @@
 	"../entidades/formas.h"
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
+
+1778867611 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
+	"estado_global.h"
+
+1778866884 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
+
+1778956753 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
+	"menuconf.h"
+	"GBT/gbt.h"
+	"../extras/utils.h"
+	"../extras/estado_global.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
+	"menuprinc.h"
+
+1778952651 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.h
+
+1778870036 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.h
+
+1778952728 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
+	"menuprinc.h"
+	"GBT/gbt.h"
+	"../extras/utils.h"
+	"../extras/estado_global.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
+	<string.h>
 

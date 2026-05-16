@@ -44,6 +44,8 @@ struct {
     unsigned lineas_eliminadas[4];
     unsigned cant_lns_elmin;
 
+    unsigned char formas_anteriores[JUEGO_MAX_FORMAS_USADAS];
+
     unsigned char estado_actual;
     int pausa_primer_frame;
     int menu_seleccion;
