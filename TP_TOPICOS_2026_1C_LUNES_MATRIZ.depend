@@ -113,22 +113,22 @@
 
 1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\juego.h
 
-1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+1778955796 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
 	"formas.h"
-	"utils.h"
-	"imagenes.h"
+	"../extras/utils.h"
+	"../extras/imagenes.h"
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
 	"mapa.h"
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
 
-1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
+1778954976 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
 	"mapa.h"
 	<stdlib.h>
 	<memory.h>
-	"utils.h"
-	"imagenes.h"
+	"../extras/utils.h"
+	"../extras/imagenes.h"
 
 1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
 	"imagenes.h"
@@ -142,7 +142,7 @@
 	"GBT/gbt.h"
 	"imagenes.h"
 
-1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
+1778955112 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
 	"gbt_entrada.h"
@@ -166,23 +166,23 @@
 	<stdlib.h>
 	<stdint.h>
 
-1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
+1778955726 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"GBT/gbt.h"
-	"imagenes.h"
-	"utils.h"
-	"juego.h"
+	"extras/imagenes.h"
+	"extras/utils.h"
+	"pantallas/juego.h"
 
-1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+1778955752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
 	"juego.h"
 	<stdio.h>
 	"GBT/gbt.h"
-	"imagenes.h"
-	"utils.h"
-	"mapa.h"
-	"formas.h"
+	"../extras/imagenes.h"
+	"../extras/utils.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
 

@@ -1,8 +1,8 @@
 #include "mapa.h"
 #include <stdlib.h>
 #include <memory.h>
-#include "utils.h"
-#include "imagenes.h"
+#include "../extras/utils.h"
+#include "../extras/imagenes.h"
 
 mapa_t mapa_crear(unsigned _ancho, unsigned _alto)
 {

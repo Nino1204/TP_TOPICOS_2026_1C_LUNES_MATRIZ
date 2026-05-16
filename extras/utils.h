@@ -3,8 +3,8 @@
 
 //archivo para describir utilidades generales
 
-#define VENTANA_ANCHO 280
-#define VENTANA_ALTO 150
+#define VENTANA_ANCHO 320
+#define VENTANA_ALTO 200
 
 void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned char (*pixeles)[w]);
 void utils_dibujar_imagen_sombra(int posx,int posy, unsigned w,unsigned h, unsigned char (*pixeles)[w]);

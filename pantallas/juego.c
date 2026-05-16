@@ -4,13 +4,13 @@
 
 #include "GBT/gbt.h"
 
-#include "imagenes.h"
-#include "utils.h"
-#include "mapa.h"
-#include "formas.h"
+#include "../extras/imagenes.h"
+#include "../extras/utils.h"
+#include "../entidades/mapa.h"
+#include "../entidades/formas.h"
 
-#define MAPA_ANCHO 16
-#define MAPA_ALTO 18
+#define MAPA_ANCHO 10
+#define MAPA_ALTO 20
 
 //la cantidad maxima de formas anteriores usadas que se pueden guardar
 //se usa en el algoritmo para elegir la proxima forma a dar

@@ -3,13 +3,10 @@
 #include <string.h>
 
 #include "GBT/gbt.h"
-#include "imagenes.h"
-#include "utils.h"
+#include "extras/imagenes.h"
+#include "extras/utils.h"
 
-#include "juego.h"
-
-#define MAPA_ANCHO 16
-#define MAPA_ALTO 18
+#include "pantallas/juego.h"
 
 #define COLOR_FONDO 79
 

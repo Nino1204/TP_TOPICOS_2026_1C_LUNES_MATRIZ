@@ -1,10 +1,10 @@
 #include "formas.h"
 
-#include "utils.h"
-#include "imagenes.h"
+#include "../extras/utils.h"
+#include "../extras/imagenes.h"
 
 unsigned char forma_desc_l[4][4] = {
-    { 0,0,0,0 },
+    { 0,2,0,0 },
     { 0,2,0,0 },
     { 0,2,0,0 },
     { 0,2,2,0 }
