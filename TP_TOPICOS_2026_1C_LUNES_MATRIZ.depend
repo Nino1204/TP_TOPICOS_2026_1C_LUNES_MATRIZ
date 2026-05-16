@@ -113,3 +113,76 @@
 
 1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\juego.h
 
+1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+	"formas.h"
+	"utils.h"
+	"imagenes.h"
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
+	"mapa.h"
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
+
+1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
+	"mapa.h"
+	<stdlib.h>
+	<memory.h>
+	"utils.h"
+	"imagenes.h"
+
+1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
+	"imagenes.h"
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
+
+1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
+	"utils.h"
+	<ctype.h>
+	<string.h>
+	"GBT/gbt.h"
+	"imagenes.h"
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_logger.h
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GBT/gbt.h"
+	"imagenes.h"
+	"utils.h"
+	"juego.h"
+
+1778953828 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+	"juego.h"
+	<stdio.h>
+	"GBT/gbt.h"
+	"imagenes.h"
+	"utils.h"
+	"mapa.h"
+	"formas.h"
+
+1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
+
