@@ -7,7 +7,10 @@
 #include "../entidades/mapa.h"
 #include "../entidades/formas.h"
 
+#include "menupunt.h"
+
 #include <string.h>
+#include <math.h>
 
 enum {
     MENUPRINC_JUGAR,
@@ -22,11 +25,13 @@ struct {
     menu_boton_t botones[MENUPRINC_OPCANT];
     mapa_t mapa;
     float my;
+    float temp; //usado para la animacion del titulo
     unsigned char b_actual;
 
 } menuprinc_estado;
 
 void menuprinc_describir_boton(unsigned char b_id, char nombre[MENU_BOTON_TEXTOMAX]);
+void menuprinc_boton_apretado(unsigned char b_id);
 
 void menuprinc_iniciar()
 {
@@ -37,6 +42,11 @@ void menuprinc_iniciar()
     menuprinc_describir_boton(MENUPRINC_CONFIG, "CONFIGURACION");
     menuprinc_describir_boton(MENUPRINC_PUNTAJES, "PUNTAJES");
     menuprinc_describir_boton(MENUPRINC_SALIR, "SALIR");
+
+    //---TITULO---
+
+    menuprinc_estado.temp = 0.0f;
+    menuprinc_estado.my = -8*MAPA_BLOQUE_TAM;
 
     menuprinc_estado.mapa = mapa_crear(22,8);
 
@@ -89,7 +99,7 @@ void menuprinc_actualizar()
             0 : menuprinc_estado.b_actual+1;
         break;
     case GBTK_ENTER:
-        global_siguiente_pantalla(PANTALLA_JUEGO);
+        menuprinc_boton_apretado(menuprinc_estado.b_actual);
         break;
     }
 
@@ -106,7 +116,10 @@ void menuprinc_actualizar()
 
     }
 
-    menuprinc_estado.my += (16.0f - menuprinc_estado.my) * 0.12f;
+    menuprinc_estado.temp += 1.0f / 60.0f;
+    float dy = 3.0f*sinf(menuprinc_estado.temp * 3.1416f);
+
+    menuprinc_estado.my += (16.0f+dy - menuprinc_estado.my) * 0.12f;
 
 }
 void menuprinc_dibujar()
@@ -173,5 +186,27 @@ void menuprinc_describir_boton(unsigned char b_id, char nombre[MENU_BOTON_TEXTOM
         sizeof(char) * MENU_BOTON_TEXTOMAX,
         nombre
     );
+
+}
+
+void menuprinc_boton_apretado(unsigned char b_id)
+{
+
+    switch (b_id)
+    {
+    case MENUPRINC_JUGAR:
+        global_siguiente_pantalla(PANTALLA_JUEGO);
+        break;
+    case MENUPRINC_CONFIG:
+        global_siguiente_pantalla(PANTALLA_MENUCONF);
+        break;
+    case MENUPRINC_PUNTAJES:
+        global_siguiente_pantalla(PANTALLA_GAMEOVER);
+        menupunt_esconder_titulo(1); //para que no diga "game over"
+        break;
+    case MENUPRINC_SALIR:
+        global_pedir_salida();
+        break;
+    }
 
 }

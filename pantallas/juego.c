@@ -1,16 +1,17 @@
 #include "juego.h"
 
 #include <stdio.h>
+#include <memory.h>
 
 #include "GBT/gbt.h"
 
 #include "../extras/imagenes.h"
 #include "../extras/utils.h"
+#include "../extras/estado_global.h"
 #include "../entidades/mapa.h"
 #include "../entidades/formas.h"
 
-#define MAPA_ANCHO 10
-#define MAPA_ALTO 20
+#include "menupunt.h"
 
 //la cantidad maxima de formas anteriores usadas que se pueden guardar
 //se usa en el algoritmo para elegir la proxima forma a dar
@@ -50,6 +51,10 @@ struct {
     int pausa_primer_frame;
     int menu_seleccion;
 
+    //contador de algoritmo (para elegir siguiente forma), si se pasa de 255 intentos se termina
+    //por las dudas de un stack-overflow supongo, nunca se sabe
+    unsigned char alg_cont;
+
     unsigned score;
     char score_texto[16];
 
@@ -58,30 +63,38 @@ struct {
 //llamado cuando una forma choca (o al principio), actualiza la forma usada y la que viene despues
 void juego_cambiar_formas();
 //devuelve el id de la forma que tendria que seguir
-void juego_siguiente_forma();
+int juego_siguiente_forma();
 
 void juego_reiniciar();
 int juego_revisar_mapa();
 
+void juego_perdio();
+
 void juego_iniciar()
 {
 
-    estado_j.mapa = mapa_crear(MAPA_ANCHO, MAPA_ALTO);
-    estado_j.mapa_origenx = VENTANA_ANCHO/2-MAPA_ANCHO*MAPA_BLOQUE_TAM/2;
-    estado_j.mapa_origeny = VENTANA_ALTO-MAPA_ALTO*MAPA_BLOQUE_TAM;
+    global_config_t conf = *(global_config_t*) global_obtener_config_ptr();
+
+    estado_j.mapa = mapa_crear(conf.mw, conf.mh);
+    estado_j.mapa_origenx = VENTANA_ANCHO/2-conf.mw*MAPA_BLOQUE_TAM/2;
+    estado_j.mapa_origeny = VENTANA_ALTO-conf.mh*MAPA_BLOQUE_TAM;
     estado_j.menu_seleccion = MENU_CONTINUAR;
 
     //poner las paredes verticales
-    for (int y = 0; y < MAPA_ALTO; y++)
+    for (int y = 0; y < conf.mh; y++)
     {
         mapa_poner_bloque(estado_j.mapa, 0,y, 1);
-        mapa_poner_bloque(estado_j.mapa, MAPA_ANCHO-1,y, 1);
+        mapa_poner_bloque(estado_j.mapa, conf.mw-1,y, 1);
     }
+
+    //datos para el algoritmo de siguiente pieza
+    estado_j.alg_cont = 0;
+    memset(estado_j.formas_anteriores, 0xFF, sizeof(unsigned char) * JUEGO_MAX_FORMAS_USADAS);
 
     juego_siguiente_forma(); //crea la primera forma a usar
     juego_cambiar_formas(); //utiliza esa forma y crea la siguiente
 
-    estado_j.tick_temp = gbt_temporizador_crear(0.4);
+    estado_j.tick_temp = gbt_temporizador_crear(conf.velocidad * 0.001f);
     estado_j.lineas_temp = gbt_temporizador_crear(0.1);
 
     estado_j.cant_lns_elmin = 0;
@@ -181,7 +194,7 @@ void juego_actualizar_normal() //el juego normal
 {
 
     //limpiar la forma anterior
-    //porque si se tiene que mover o rotar
+    //por si se tiene que mover o rotar
     forma_limpiar_de_mapa(estado_j.forma, estado_j.mapa);
 
     eGBT_Tecla tecla = gbt_obtener_tecla_presionada();
@@ -217,7 +230,6 @@ void juego_actualizar_normal() //el juego normal
         else
         {
             forma_poner_en_mapa(estado_j.forma, estado_j.mapa);
-            juego_cambiar_formas();
             //revisar si se limpio una linea
             if (juego_revisar_mapa())
             {
@@ -229,6 +241,9 @@ void juego_actualizar_normal() //el juego normal
                 sprintf(estado_j.score_texto, SCORE_TEXTO_FORMATO, estado_j.score);
                 return;
             }
+            //nota: si se limpio una linea no se va a cambiar de formas hasta que termine la animacion.
+            //esto es para que se pueda ver la siguiente forma mientras la animacion se esta ejecutando
+            juego_cambiar_formas();
         }
     }
 
@@ -270,8 +285,9 @@ void juego_actualizar_animlineas() //la animacion de lineas eliminadas
     //resumir el juego cuando termina animacion
     if (anim_terminada)
     {
-        mapa_revisar_lineas(mapa);
+        mapa_revisar_lineas(mapa); //*REVISAR* no me acuerdo que hacia :/
         estado_j.estado_actual = JUEGO_ESTADO_NORMAL;
+        juego_cambiar_formas();
     }
 
 }
@@ -288,16 +304,63 @@ void juego_cambiar_formas()
     //tiene colision con el mapa, significa que se perdio
     if (forma_tiene_colision(estado_j.forma, estado_j.mapa))
     {
-        juego_reiniciar();
+        juego_perdio();
         return;
     }
 
-    juego_siguiente_forma();
+    //---grabar la forma usada (unas lineas arriba)---
+    //empujo las anteriores hacia atras, asi queda la posicion 0 libre
+    for (int i = JUEGO_MAX_FORMAS_USADAS-1; i > 0; i--)
+        estado_j.formas_anteriores[i] = estado_j.formas_anteriores[i-1];
+    //pongo la forma adelate
+    estado_j.formas_anteriores[0] = estado_j.forma.f_id;
+
+    //crear siguiente forma
+    estado_j.forma_sig = forma_crear(
+         VENTANA_ANCHO/2-16,2, juego_siguiente_forma()
+    );
 
 }
-void juego_siguiente_forma()
+int juego_siguiente_forma()
 {
-    estado_j.forma_sig = forma_crear(VENTANA_ANCHO/2-16,2, rand()%FORMA_ID_CANTIDAD);
+
+    unsigned char sig_forma_id = rand()%FORMA_ID_CANTIDAD;
+
+    //en el caso que haya estado intentando durante muchos frames,
+    //directamente devuelvo la primera opcion
+    if (estado_j.alg_cont == 255)
+    {
+        estado_j.alg_cont = 0;
+        return sig_forma_id;
+    }
+
+    estado_j.alg_cont++;
+
+    unsigned chances;
+    unsigned char *f_anteriores = estado_j.formas_anteriores;
+
+    chances = 1;
+    for (int i = 0; i < JUEGO_MAX_FORMAS_USADAS; i++)
+    {
+        if (f_anteriores[i] == sig_forma_id)
+            chances += (JUEGO_MAX_FORMAS_USADAS-i)*2;
+    }
+
+    //las posibilidades de que se acepte esta forma son 1 en [chances]
+    //mientras mas se haya repetido la forma (y mas recientemente) menos chances hay
+    //de que se elija
+
+    int resuelto = (rand()%chances) == 0;
+    if (!resuelto)
+    {
+        //porfavor, que se note la recursion
+        sig_forma_id = juego_siguiente_forma();
+    }
+
+    estado_j.alg_cont = 0; //se termino el algoritmo, reseteo
+
+    return sig_forma_id;
+
 }
 
 void juego_pausa()
@@ -374,10 +437,22 @@ void juego_pausa()
                 juego_reiniciar();
                 break;
             case MENU_SALIR:
-                juego_cerrar();
-                gbt_cerrar();
+                global_siguiente_pantalla(PANTALLA_MENUPRINC);
+                break;
             }
         }
     }
+
+}
+
+void juego_perdio()
+{
+
+    puntajereg_t *reg_ptr = global_obtener_puntaje_ptr();
+
+    reg_ptr->puntaje = estado_j.score;
+
+    global_siguiente_pantalla(PANTALLA_GAMEOVER);
+    menupunt_esconder_titulo(0); //que se muestre el "GAME OVER"
 
 }

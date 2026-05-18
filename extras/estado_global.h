@@ -24,12 +24,28 @@ void global_cambiar_pantallas(); //pasa a la siguiente pantalla
 typedef struct {
 
     unsigned puntaje;
-    char nombre[3];
+    char nombre[4];
 
 } puntajereg_t;
 #define ESTADO_GLOBAL_MAXPUNTS 5
 
+typedef struct {
+
+    unsigned velocidad;
+    unsigned char paleta;
+    unsigned char mw, mh; //cantidad de columnas y filas
+
+} global_config_t;
+
 void global_registar_puntaje(pantalla_id puntaje, char nombre[3]);
 puntajereg_t* global_obtener_puntajes();
+
+global_config_t *global_obtener_config_ptr(); //devuelve la direccion de la configuracion global
+
+int global_salida_es_pedida(); //si se pidio cerrar el programa
+void global_pedir_salida(); //pedir para cerrar el programa
+
+
+puntajereg_t* global_obtener_puntaje_ptr();
 
 #endif // ESTADO_GLOBAL_H_INCLUDED

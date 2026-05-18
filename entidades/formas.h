@@ -17,10 +17,12 @@ typedef struct {
 
 enum {
     FORMA_ID_L,
+    FORMA_ID_L2,
     FORMA_ID_I,
     FORMA_ID_S,
     FORMA_ID_S2,
     FORMA_ID_O,
+    FORMA_ID_T,
     FORMA_ID_CANTIDAD //cantidad de tipos de formas
 };
 

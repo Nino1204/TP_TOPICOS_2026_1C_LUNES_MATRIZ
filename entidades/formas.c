@@ -4,9 +4,15 @@
 #include "../extras/imagenes.h"
 
 unsigned char forma_desc_l[4][4] = {
+    { 0,0,0,0 },
     { 0,2,0,0 },
     { 0,2,0,0 },
-    { 0,2,0,0 },
+    { 0,2,2,0 }
+};
+unsigned char forma_desc_l2[4][4] = {
+    { 0,0,0,0 },
+    { 0,0,2,0 },
+    { 0,0,2,0 },
     { 0,2,2,0 }
 };
 unsigned char forma_desc_I[4][4] = {
@@ -33,6 +39,12 @@ unsigned char forma_desc_O[4][4] = {
     { 0,5,5,0 },
     { 0,0,0,0 }
 };
+unsigned char forma_desc_T[4][4] = {
+    { 0,0,0,0 },
+    { 0,0,6,0 },
+    { 0,6,6,6 },
+    { 0,0,0,0 }
+};
 
 forma_t forma_crear(int px, int py, unsigned char forma_id)
 {
@@ -49,6 +61,9 @@ forma_t forma_crear(int px, int py, unsigned char forma_id)
     case FORMA_ID_L:
         forma_desc = forma_desc_l;
         break;
+    case FORMA_ID_L2:
+        forma_desc = forma_desc_l2;
+        break;
     case FORMA_ID_I:
         forma_desc = forma_desc_I;
         break;
@@ -60,6 +75,9 @@ forma_t forma_crear(int px, int py, unsigned char forma_id)
         break;
     case FORMA_ID_O:
         forma_desc = forma_desc_O;
+        break;
+    case FORMA_ID_T:
+        forma_desc = forma_desc_T;
         break;
     }
 

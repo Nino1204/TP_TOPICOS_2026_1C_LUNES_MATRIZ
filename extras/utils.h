@@ -16,4 +16,6 @@ void utils_dibujar_lineah(int py, int xdesde, int xhasta, unsigned char c);
 void utils_dibujar_cuadradolineas(int px,int py, int w,int h, unsigned char c);
 void utils_set_pixel_mascara(unsigned char pixel);
 
+void utils_aplicar_paleta(unsigned char paleta);
+
 #endif // UTILS_H_INCLUDED

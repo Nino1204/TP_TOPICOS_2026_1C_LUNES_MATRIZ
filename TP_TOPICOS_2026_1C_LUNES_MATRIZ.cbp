@@ -44,7 +44,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="entidades/mapa.h" />
-
+		<Unit filename="extras/estado_global.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="extras/estado_global.h" />
 		<Unit filename="extras/imagenes.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -60,6 +63,20 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="pantallas/juego.h" />
+		<Unit filename="pantallas/menuconf.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pantallas/menuconf.h" />
+		<Unit filename="pantallas/menuprinc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pantallas/menuprinc.h" />
+		<Unit filename="pantallas/menupunt.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pantallas/menupunt.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
