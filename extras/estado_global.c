@@ -3,15 +3,27 @@
 struct {
 
     puntajereg_t puntajes_registros[ESTADO_GLOBAL_MAXPUNTS];
+    puntajereg_t puntaje_actual;
     pantalla_id p_actual, p_siguiente;
+
+    global_config_t config;
+
+    unsigned char salida_en_fila;
 
 } global_estado;
 
 void global_iniciar(pantalla_id p_inicial)
 {
 
+    global_estado.salida_en_fila = 0;
+
     global_estado.p_actual = PANTALLA_NADA;
     global_estado.p_siguiente = p_inicial;
+
+    global_estado.puntaje_actual.puntaje = 0;
+    global_estado.puntaje_actual.nombre[0] = '?';
+    global_estado.puntaje_actual.nombre[1] = '?';
+    global_estado.puntaje_actual.nombre[2] = '?';
 
     for (int i = 0; i < ESTADO_GLOBAL_MAXPUNTS; i++)
     {
@@ -21,6 +33,12 @@ void global_iniciar(pantalla_id p_inicial)
         global_estado.puntajes_registros[i].nombre[1] = '?';
         global_estado.puntajes_registros[i].nombre[2] = '?';
     }
+
+    global_config_t *cnf = &global_estado.config;
+    cnf->paleta = 0;
+    cnf->velocidad = 400; //0.4s
+    cnf->mw = 10;
+    cnf->mh = 20;
 
 }
 
@@ -72,4 +90,27 @@ puntajereg_t* global_obtener_puntajes()
 
     return global_estado.puntajes_registros;
 
+}
+
+global_config_t *global_obtener_config_ptr()
+{
+
+    return &global_estado.config;
+
+}
+
+int global_salida_es_pedida()
+{
+
+    return global_estado.salida_en_fila;
+
+}
+void global_pedir_salida()
+{
+    global_estado.salida_en_fila = 1;
+}
+
+puntajereg_t* global_obtener_puntaje_ptr()
+{
+    return &global_estado.puntaje_actual;
 }

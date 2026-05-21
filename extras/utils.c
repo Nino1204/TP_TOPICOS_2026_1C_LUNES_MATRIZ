@@ -8,12 +8,14 @@
 
 //las imagenes que se dibujan no van a admitir estos colores
 //es para transparencia
-unsigned char utils_pixel_mascara = 1;
+unsigned char utils_pixel_mascara = 0xFF;
+unsigned char utils_paleta_actual = 0;
 
 //------IMAGENES------
 void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned char (*pixeles)[w])
 {
     unsigned char p;
+    unsigned char *paleta = Imagenes_ObtenerPixeles(IMAGENES_ID_PALETAS, utils_paleta_actual);
 
     for (int y = 0; y < h; y++)
     {
@@ -21,7 +23,7 @@ void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned cha
         {
             p = pixeles[y][x];
             if (p != utils_pixel_mascara)
-                gbt_dibujar_pixel(posx+x,posy+y, p);
+                gbt_dibujar_pixel(posx+x,posy+y, paleta[p]);
         }
     }
 }
@@ -131,6 +133,11 @@ void utils_dibujar_lineah(int py, int xdesde, int xhasta, unsigned char c)
         if ((x%4) == 0) continue;
         gbt_dibujar_pixel(x,py, c);
     }
+}
+
+void utils_aplicar_paleta(unsigned char paleta)
+{
+    utils_paleta_actual = paleta;
 }
 
 //describir que pixeles se usan para transparencia

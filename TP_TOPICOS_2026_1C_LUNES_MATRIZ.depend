@@ -113,12 +113,12 @@
 
 1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\juego.h
 
-1778955796 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+1779125798 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
 	"formas.h"
 	"../extras/utils.h"
 	"../extras/imagenes.h"
 
-1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
+1779125140 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
 	"mapa.h"
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
@@ -130,18 +130,18 @@
 	"../extras/utils.h"
 	"../extras/imagenes.h"
 
-1778960414 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
+1779135840 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
 	"imagenes.h"
 
-1778960387 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
+1779132194 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
 
-1778960366 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
+1779080669 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
 	"utils.h"
 	<ctype.h>
 	"GBT/gbt.h"
 	"imagenes.h"
 
-1778955112 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
+1779132325 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
 	"gbt_entrada.h"
@@ -165,32 +165,39 @@
 	<stdlib.h>
 	<stdint.h>
 
-1778955726 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
+1779133810 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"GBT/gbt.h"
 	"extras/imagenes.h"
 	"extras/utils.h"
+	"extras/estado_global.h"
 	"pantallas/juego.h"
+	"pantallas/menuprinc.h"
+	"pantallas/menuconf.h"
+	"pantallas/menupunt.h"
 
-1778960239 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+1779136146 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
 	"juego.h"
 	<stdio.h>
+	<memory.h>
 	"GBT/gbt.h"
 	"../extras/imagenes.h"
 	"../extras/utils.h"
+	"../extras/estado_global.h"
 	"../entidades/mapa.h"
 	"../entidades/formas.h"
+	"menupunt.h"
 
 1778953828 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
 
-1778867611 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
+1779127302 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
 	"estado_global.h"
 
-1778866884 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
+1779129303 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
 
-1778956753 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
+1779080690 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
 	"menuconf.h"
 	"GBT/gbt.h"
 	"../extras/utils.h"
@@ -203,12 +210,26 @@
 
 1778870036 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.h
 
-1778952728 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
+1779136113 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
 	"menuprinc.h"
 	"GBT/gbt.h"
 	"../extras/utils.h"
 	"../extras/estado_global.h"
 	"../entidades/mapa.h"
 	"../entidades/formas.h"
+	"menupunt.h"
 	<string.h>
+	<math.h>
+
+1779136098 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.h
+
+1779135989 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.c
+	"menupunt.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../extras/estado_global.h"
+	"../extras/utils.h"
+	"../extras/imagenes.h"
+	"GBT/gbt.h"
 
