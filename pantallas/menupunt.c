@@ -195,20 +195,21 @@ void menupunt_input_actualizar()
     if (tecla == GBTK_ENTER)
     {
 
-        puntajereg_t reg_act = *(puntajereg_t*)global_obtener_puntaje_ptr();
+        puntajereg_t *reg_act = global_obtener_puntaje_ptr();
         puntajereg_t *regs = menupunt_estado.regs;
         for (int i = 0; i < MENUPUNT_PUNTAJES_TOTALES; i++)
         {
-            if (reg_act.puntaje <= regs[i].puntaje)
+            if (reg_act->puntaje <= regs[i].puntaje)
                 continue;
             for (int j = MENUPUNT_PUNTAJES_TOTALES-1; j > i; j--)
                 regs[j] = regs[j-1];
             strcpy(regs[i].nombre, menupunt_estado.nombre_actual);
-            regs[i].puntaje = reg_act.puntaje;
+            regs[i].puntaje = reg_act->puntaje;
             menupunt_estado.ultimo_score = i;
             break;
         }
         menupunt_estado.est_actual = MENUPUNT_MOSTRAR;
+        reg_act->puntaje = 0;
         return;
     }
 
