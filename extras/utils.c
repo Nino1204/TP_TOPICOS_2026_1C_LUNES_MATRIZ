@@ -15,7 +15,6 @@ unsigned char utils_paleta_actual = 0;
 void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned char (*pixeles)[w])
 {
     unsigned char p;
-    unsigned char *paleta = Imagenes_ObtenerPixeles(IMAGENES_ID_PALETAS, utils_paleta_actual);
 
     for (int y = 0; y < h; y++)
     {
@@ -23,7 +22,7 @@ void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned cha
         {
             p = pixeles[y][x];
             if (p != utils_pixel_mascara)
-                gbt_dibujar_pixel(posx+x,posy+y, paleta[p]);
+                gbt_dibujar_pixel(posx+x,posy+y, p);
         }
     }
 }
@@ -37,7 +36,7 @@ void utils_dibujar_imagen_sombra(int posx,int posy, unsigned w,unsigned h, unsig
         {
             p = pixeles[y][x];
             if (p != utils_pixel_mascara)
-                gbt_dibujar_pixel(posx+x,posy+y, 9);
+                gbt_dibujar_pixel(posx+x,posy+y, 14);
         }
     }
 }
@@ -137,6 +136,8 @@ void utils_dibujar_lineah(int py, int xdesde, int xhasta, unsigned char c)
 
 void utils_aplicar_paleta(unsigned char paleta)
 {
+    tGBT_ColorRGB *pcolores = (tGBT_ColorRGB*) Imagenes_ObtenerPixeles(IMAGENES_ID_PALETAS, paleta);
+    gbt_aplicar_paleta(pcolores, 18, GBT_FORMATO_888);
     utils_paleta_actual = paleta;
 }
 

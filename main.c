@@ -12,7 +12,7 @@
 #include "pantallas/menuconf.h"
 #include "pantallas/menupunt.h"
 
-#define COLOR_FONDO 79
+#define COLOR_FONDO 15
 
 void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva);
 
@@ -21,7 +21,7 @@ int main()
 
     gbt_iniciar();
 
-    gbt_crear_ventana("TRABAJO MATRIZ", VENTANA_ANCHO,VENTANA_ALTO, 4);
+    gbt_crear_ventana("TRABAJO MATRIZ", RESCGA_ANCHO,RESCGA_ALTO, RESCGA_ESCALA);
 
     global_iniciar(PANTALLA_MENUPRINC);
 
@@ -30,6 +30,7 @@ int main()
     pantalla_id pantalla_sig;
 
     utils_set_pixel_mascara(0xFF);
+    utils_aplicar_paleta(0);
 
     while (corriendo)
     {

@@ -42,30 +42,41 @@ int mapa_es_valido(mapa_t mapa)
 {
     return mapa.ancho > 0 && mapa.alto > 0 && mapa.tablero != NULL;
 }
-int mapa_posicion_es_vacia(mapa_t mapa, unsigned posx,unsigned posy)
+int mapa_posicion_es_vacia(mapa_t mapa, int posx,int posy)
 {
     //devuelve 0 si no es vacio, 1 si es vacio y 2 si no existe la pos
-    if (posx >= mapa.ancho && posy >= mapa.alto)
-        return 2;
+    if (posx < 0) posx = mapa.ancho + (posx%(int)mapa.ancho);
+    if (posx >= mapa.ancho) posx = posx % mapa.ancho;
+    if (posy >= mapa.alto) return 2;
     return mapa.tablero[posy*mapa.ancho+posx] == 0;
 }
-void mapa_poner_bloque(mapa_t mapa, unsigned posx,unsigned posy, unsigned char bloque_id)
+void mapa_poner_bloque(mapa_t mapa, int posx,int posy, unsigned char bloque_id)
 {
 
+    if (posx < 0) posx = mapa.ancho + (posx%(int)mapa.ancho);
+    if (posx >= mapa.ancho) posx = posx % mapa.ancho;
+    if (posy < 0 || posy >= mapa.alto) return;
+/*
     //si la posicion esta fuera del tablero
     if (posx >= mapa.ancho || posy >= mapa.alto)
         return;
+*/
 
     mapa.tablero[posy*mapa.ancho+posx] = bloque_id;
 
 }
-unsigned char mapa_obtener_bloque(mapa_t mapa, unsigned posx,unsigned posy)
+unsigned char mapa_obtener_bloque(mapa_t mapa, int posx,int posy)
 {
 
+    if (posx < 0) posx = mapa.ancho + (posx%(int)mapa.ancho);
+    if (posx >= mapa.ancho) posx = posx % mapa.ancho;
+    if (posy < 0 || posy >= mapa.alto) return MAPA_POS_VACIA;
+
+    /*
     //si la posicion esta fuera del tablero devolver un numero invalido
     if (posx >= mapa.ancho || posy >= mapa.alto)
         return MAPA_POS_VACIA;
-
+*/
     //NOTA:
     //cuando una posicion en el tablero esta vacio se le pone 0.
     //por lo tanto si una posicion no esta vacia, y se quiere

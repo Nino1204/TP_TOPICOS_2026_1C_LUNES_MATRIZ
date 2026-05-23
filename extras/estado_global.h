@@ -29,11 +29,17 @@ typedef struct {
 } puntajereg_t;
 #define ESTADO_GLOBAL_MAXPUNTS 5
 
+enum {
+    MODOJUEGO_CLASICO,
+    MODOJUEGO_DX
+};
+
 typedef struct {
 
     unsigned velocidad;
     unsigned char paleta;
     unsigned char mw, mh; //cantidad de columnas y filas
+    unsigned char modo_juego;
 
 } global_config_t;
 
@@ -45,7 +51,29 @@ global_config_t *global_obtener_config_ptr(); //devuelve la direccion de la conf
 int global_salida_es_pedida(); //si se pidio cerrar el programa
 void global_pedir_salida(); //pedir para cerrar el programa
 
-
 puntajereg_t* global_obtener_puntaje_ptr();
+
+enum {
+    RESTIPO_CGA,
+    RESTIPO_VGA
+};
+
+#define RESCGA_ANCHO 320
+#define RESCGA_ALTO 200
+#define RESCGA_ESCALA 3
+
+#define RESVGA_ANCHO 640
+#define RESVGA_ALTO 400
+#define RESVGA_ESCALA 2
+
+int global_ventana_ancho();
+int global_ventana_alto();
+
+#define VENTANA_ANCHO global_ventana_ancho()
+#define VENTANA_ALTO global_ventana_alto()
+
+//cambia al otro tipo de resolucion
+void global_cambiar_resolucion();
+unsigned char global_obtener_res();
 
 #endif // ESTADO_GLOBAL_H_INCLUDED

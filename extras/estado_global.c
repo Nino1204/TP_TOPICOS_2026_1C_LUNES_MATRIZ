@@ -8,6 +8,9 @@ struct {
 
     global_config_t config;
 
+    unsigned char res_actual;
+    int vancho, valto;
+
     unsigned char salida_en_fila;
 
 } global_estado;
@@ -36,9 +39,14 @@ void global_iniciar(pantalla_id p_inicial)
 
     global_config_t *cnf = &global_estado.config;
     cnf->paleta = 0;
-    cnf->velocidad = 400; //0.4s
+    cnf->velocidad = 1000; //1.0s
     cnf->mw = 10;
     cnf->mh = 20;
+    cnf->modo_juego = MODOJUEGO_CLASICO;
+
+    global_estado.res_actual = RESTIPO_CGA;
+    global_estado.vancho = RESCGA_ANCHO;
+    global_estado.valto = RESCGA_ALTO;
 
 }
 
@@ -113,4 +121,44 @@ void global_pedir_salida()
 puntajereg_t* global_obtener_puntaje_ptr()
 {
     return &global_estado.puntaje_actual;
+}
+
+int global_ventana_ancho()
+{
+    return global_estado.vancho;
+}
+int global_ventana_alto()
+{
+    return global_estado.valto;
+}
+
+void global_cambiar_resolucion()
+{
+
+    unsigned vancho, valto;
+    unsigned char vescala;
+
+    if (global_estado.res_actual == RESTIPO_CGA)
+    {
+        vancho = RESVGA_ANCHO; valto = RESVGA_ALTO;
+        vescala = RESVGA_ESCALA;
+        global_estado.res_actual = RESTIPO_VGA;
+    }
+    else
+    {
+        vancho = RESCGA_ANCHO; valto = RESCGA_ALTO;
+        vescala = RESCGA_ESCALA;
+        global_estado.res_actual = RESTIPO_CGA;
+    }
+
+    global_estado.vancho = vancho;
+    global_estado.valto = valto;
+
+    gbt_destruir_ventana();
+    gbt_crear_ventana("TRABAJO MATRIZ", vancho,valto,vescala);
+
+}
+unsigned char global_obtener_res()
+{
+    return global_estado.res_actual;
 }

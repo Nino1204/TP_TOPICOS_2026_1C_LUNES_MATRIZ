@@ -15,6 +15,7 @@ enum {
     CONFIG_PAL,
     CONFIG_MAPW,
     CONFIG_MAPH,
+    CONFIG_RES,
     CONFIG_ATRAS, //no es una configuracion, es el boton de volver, pero que se yo
     CONFIG_CANT
 };
@@ -49,6 +50,7 @@ void menuconf_iniciar()
     CONFIG_DESCRIPCION(CONFIG_PAL, "la paleta de colores que se usa en el juego");
     CONFIG_DESCRIPCION(CONFIG_MAPH, "la cantidad de columnas que tiene el tablero");
     CONFIG_DESCRIPCION(CONFIG_MAPW, "la cantidad de filas que tiene el tablero");
+    CONFIG_DESCRIPCION(CONFIG_RES, "resolucion del juego cga:320x200 vga:640x400");
     CONFIG_DESCRIPCION(CONFIG_ATRAS, "volver al menu principal");
 
     menuconf_estado.boton_actual = 0;
@@ -102,21 +104,21 @@ void menuconf_actualizar()
 void menuconf_dibujar()
 {
 
-    utils_dibujar_texto(VENTANA_ANCHO/2-14*3,9, "configuracion:", 9);
-    utils_dibujar_texto(VENTANA_ANCHO/2-14*3,8, "configuracion:", 15);
+    utils_dibujar_texto(VENTANA_ANCHO/2-14*3,9, "configuracion:", 14);
+    utils_dibujar_texto(VENTANA_ANCHO/2-14*3,8, "configuracion:", 13);
 
     for (int i = 0; i < CONFIG_CANT; i++)
     {
 
         menu_boton_t boton = menuconf_estado.botones[i];
-        utils_dibujar_texto(boton.x,boton.y+1, boton.nombre, 9);
-        utils_dibujar_texto(boton.x,boton.y, boton.nombre, 15);
+        utils_dibujar_texto(boton.x,boton.y+1, boton.nombre, 14);
+        utils_dibujar_texto(boton.x,boton.y, boton.nombre, 13);
 
         if (menuconf_estado.boton_actual == i)
         {
             utils_dibujar_cuadradolineas(
                 boton.x-4,boton.y-4, boton.w+8,16,
-                15
+                13
             );
         }
 
@@ -125,12 +127,12 @@ void menuconf_dibujar()
     utils_dibujar_texto(
                         menuconf_estado.desc_px, VENTANA_ALTO-11,
                         menuconf_estado.desc[menuconf_estado.boton_actual],
-                        9
+                        14
                         );
     utils_dibujar_texto(
                         menuconf_estado.desc_px, VENTANA_ALTO-12,
                         menuconf_estado.desc[menuconf_estado.boton_actual],
-                        15
+                        13
                         );
 
 }
@@ -145,6 +147,8 @@ void menuconf_describir_boton(unsigned char config_id)
     global_config_t configuracion = *(global_config_t*) global_obtener_config_ptr();
     menu_boton_t *boton = menuconf_estado.botones + config_id;
 
+    int aux;
+
     switch (config_id)
     {
     case CONFIG_VEL:
@@ -158,6 +162,10 @@ void menuconf_describir_boton(unsigned char config_id)
         break;
     case CONFIG_MAPH:
         sprintf_s( boton->nombre, sizeof(char)*32, "< filas:%u >", configuracion.mh );
+        break;
+    case CONFIG_RES:
+        aux = global_obtener_res();
+        sprintf_s( boton->nombre, sizeof(char)*32, "< resolucion:%3s >", (aux == RESTIPO_CGA) ? "cga" : "vga" );
         break;
     case CONFIG_ATRAS:
         strcpy(boton->nombre, "volver");
@@ -208,7 +216,12 @@ void menuconf_confcambiada(unsigned char config_id, signed char dir)
         if (nuevo > 30) nuevo = 30;
         c_ptr->mh = (unsigned)nuevo;
         break;
-
+    case CONFIG_RES:
+        global_cambiar_resolucion();
+        //directamente reiniciar
+        menuconf_cerrar(); //no hace nada pero bueno, nunca se sabe
+        menuconf_iniciar();
+        break;
     }
 
     menu_boton_t *boton = menuconf_estado.botones + config_id;

@@ -113,35 +113,36 @@
 
 1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\juego.h
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+1779562921 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
 	"formas.h"
 	"../extras/utils.h"
 	"../extras/imagenes.h"
 
-1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
+1779506278 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
 	"mapa.h"
 
-1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
+1779562317 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
+1779563032 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
 	"mapa.h"
 	<stdlib.h>
 	<memory.h>
 	"../extras/utils.h"
 	"../extras/imagenes.h"
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
+1779554978 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
 	"imagenes.h"
+	"GBT/gbt.h"
 
-1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
+1779510960 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
+1779552230 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
 	"utils.h"
 	<ctype.h>
 	"GBT/gbt.h"
 	"imagenes.h"
 
-1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
+1779552736 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
 	"gbt_entrada.h"
@@ -165,7 +166,7 @@
 	<stdlib.h>
 	<stdint.h>
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
+1779562723 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -178,7 +179,7 @@
 	"pantallas/menuconf.h"
 	"pantallas/menupunt.h"
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+1779563143 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
 	"juego.h"
 	<stdio.h>
 	<memory.h>
@@ -192,12 +193,12 @@
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
+1779556021 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
 	"estado_global.h"
 
-1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
+1779505142 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
+1779552339 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
 	"menuconf.h"
 	"GBT/gbt.h"
 	"../extras/utils.h"
@@ -210,7 +211,7 @@
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.h
 
-1779465752 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
+1779552306 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
 	"menuprinc.h"
 	"GBT/gbt.h"
 	"../extras/utils.h"
@@ -223,7 +224,7 @@
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.h
 
-1779135989 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.c
+1779553296 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.c
 	"menupunt.h"
 	<stdio.h>
 	<stdlib.h>

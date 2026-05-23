@@ -143,15 +143,15 @@ void menuprinc_dibujar()
 
         boton = menuprinc_estado.botones + i;
 
-        utils_dibujar_texto(boton->x,boton->y+1, boton->nombre, 9);
-        utils_dibujar_texto(boton->x,boton->y, boton->nombre, 15);
+        utils_dibujar_texto(boton->x,boton->y+1, boton->nombre, 14);
+        utils_dibujar_texto(boton->x,boton->y, boton->nombre, 13);
 
         if (i == menuprinc_estado.b_actual)
         {
             utils_dibujar_cuadradolineas(
                 boton->x-2, boton->y-2,
                 boton->w+3, 19,
-                15
+                13
             );
         }
 

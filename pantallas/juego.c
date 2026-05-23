@@ -17,6 +17,10 @@
 //se usa en el algoritmo para elegir la proxima forma a dar
 #define JUEGO_MAX_FORMAS_USADAS 6
 #define SCORE_TEXTO_FORMATO "score:%08u"
+#define VEL_TEXTO_FORMATO "tiempo caida:%ums"
+
+//cuantas veces se tiene que repetir el temp para que baje la pieza
+#define TICK_MOV_CANT 20
 
 enum {
     JUEGO_ESTADO_PAUSADO, //el juego esta pausado
@@ -45,6 +49,11 @@ struct {
     unsigned lineas_eliminadas[4];
     unsigned cant_lns_elmin;
 
+    int tick_cont;
+    int piezas_puestas;
+    int por_caer; //si la pieza esta por chocar contra el tablero
+    unsigned tiempo_caida;
+
     unsigned char formas_anteriores[JUEGO_MAX_FORMAS_USADAS];
 
     unsigned char estado_actual;
@@ -52,11 +61,12 @@ struct {
     int menu_seleccion;
 
     //contador de algoritmo (para elegir siguiente forma), si se pasa de 255 intentos se termina
-    //por las dudas de un stack-overflow supongo, nunca se sabe
+    //por las dudas de un stack-overflow supongo
     unsigned char alg_cont;
 
     unsigned score;
     char score_texto[16];
+    char vel_texto[32];
 
 } estado_j; //data del juego
 
@@ -67,6 +77,7 @@ int juego_siguiente_forma();
 
 void juego_reiniciar();
 int juego_revisar_mapa();
+void juego_ganar_puntos(int puntos);
 
 void juego_perdio();
 
@@ -94,17 +105,22 @@ void juego_iniciar()
     juego_siguiente_forma(); //crea la primera forma a usar
     juego_cambiar_formas(); //utiliza esa forma y crea la siguiente
 
-    estado_j.tick_temp = gbt_temporizador_crear(conf.velocidad * 0.001f);
-    estado_j.lineas_temp = gbt_temporizador_crear(0.1);
-
     estado_j.cant_lns_elmin = 0;
+    estado_j.piezas_puestas = 0;
+    estado_j.tiempo_caida = conf.velocidad;
+
+    estado_j.tick_cont = 0;
+    estado_j.tick_temp = gbt_temporizador_crear(estado_j.tiempo_caida * 0.001f * 1.0f/(float)TICK_MOV_CANT);
+    estado_j.lineas_temp = gbt_temporizador_crear(0.1);
+    estado_j.por_caer = 0;
 
     //se empieza con el juego normal
     estado_j.estado_actual = JUEGO_ESTADO_NORMAL;
 
     estado_j.score = 0;
+    juego_ganar_puntos(0); //actualiza el texto de score (sin ganar puntos)
 
-    sprintf(estado_j.score_texto, SCORE_TEXTO_FORMATO, estado_j.score);
+    sprintf_s(estado_j.vel_texto, 32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
 
 }
 void juego_actualizar()
@@ -134,20 +150,30 @@ void juego_dibujar()
     mapa_dibujar(estado_j.mapa, estado_j.mapa_origenx,estado_j.mapa_origeny);
 
     forma_t f_vp = estado_j.forma_sig;
-    utils_dibujar_cuadradolineas( f_vp.px+1,f_vp.py+1, 32,32, 9 ); //cuadrado sombra
-    utils_dibujar_cuadradolineas( f_vp.px,f_vp.py, 32,32, 15 );
+    utils_dibujar_cuadradolineas( f_vp.px+1,f_vp.py+1, 32,32, 14 ); //cuadrado sombra
+    utils_dibujar_cuadradolineas( f_vp.px,f_vp.py, 32,32, 13 );
     forma_dibujar_vistaprevia(f_vp);
 
-    utils_dibujar_lineah(estado_j.mapa_origeny-2, 0, VENTANA_ANCHO, 15);
-    utils_dibujar_lineah(estado_j.mapa_origeny-1, 0, VENTANA_ANCHO, 9);
+    utils_dibujar_lineah(estado_j.mapa_origeny-1, 0, VENTANA_ANCHO, 14);
+    utils_dibujar_lineah(estado_j.mapa_origeny-2, 0, VENTANA_ANCHO, 13);
 
-    utils_dibujar_texto( 1,3, estado_j.score_texto,9 );
-    utils_dibujar_texto( 0,2, estado_j.score_texto,15 );
+    UTILS_TEXTO_SOMBREADO(0,2, estado_j.score_texto)
+    UTILS_TEXTO_SOMBREADO(0,12, estado_j.vel_texto)
+
+    utils_dibujar_cuadradolineas(estado_j.mapa_origenx,estado_j.mapa_origeny, estado_j.mapa.ancho*MAPA_BLOQUE_TAM,estado_j.mapa.alto*MAPA_BLOQUE_TAM, 13);
+
+    //dibujar teclas
+    int ty = VENTANA_ALTO/2;
+    char teclas[][12] = {"mover der", "mover izq", "rotar der", "rotar izq", "bajar", "colocar", "pausa"};
+    for (int i = 0; i < IMGTECLAS_CANT; i++)
+    {
+        ty = VENTANA_ALTO/2 + 10*(i-(int)IMGTECLAS_CANT/2);
+        utils_dibujar_imagen(2,ty, 8,8, Imagenes_ObtenerPixeles(IMAGENES_ID_TECLAS, i));
+        utils_dibujar_texto(10,ty, teclas[i], 13);
+    }
 
     if (estado_j.estado_actual == JUEGO_ESTADO_PAUSADO)
-    {
         juego_pausa();
-    }
 
 }
 void juego_cerrar()
@@ -193,6 +219,8 @@ int juego_revisar_mapa()
 void juego_actualizar_normal() //el juego normal
 {
 
+    int forma_cayo = 0;
+
     //limpiar la forma anterior
     //por si se tiene que mover o rotar
     forma_limpiar_de_mapa(estado_j.forma, estado_j.mapa);
@@ -202,16 +230,29 @@ void juego_actualizar_normal() //el juego normal
     {
 
     case GBTK_DERECHA:
-        if (forma_puede_deslizar(estado_j.forma, estado_j.mapa, 1))
-            estado_j.forma.px++;
+        if (forma_puede_deslizar(estado_j.forma, estado_j.mapa, 1)) estado_j.forma.px++;
+        if (estado_j.por_caer) estado_j.tick_cont = TICK_MOV_CANT/2;
         break;
     case GBTK_IZQUIERDA:
-        if (forma_puede_deslizar(estado_j.forma, estado_j.mapa, -1))
-            estado_j.forma.px--;
+        if (forma_puede_deslizar(estado_j.forma, estado_j.mapa, -1)) estado_j.forma.px--;
+        if (estado_j.por_caer) estado_j.tick_cont = TICK_MOV_CANT/2;
+        break;
+    case GBTK_a:
+        if (forma_puede_rotar(estado_j.forma, estado_j.mapa, -1)) forma_rotar(&estado_j.forma, -1);
+        break;
+    case GBTK_d:
+        if (forma_puede_rotar(estado_j.forma, estado_j.mapa, 1)) forma_rotar(&estado_j.forma, 1);
         break;
     case GBTK_ESPACIO:
-        if (forma_puede_rotar(estado_j.forma, estado_j.mapa))
-            forma_rotar(&estado_j.forma);
+        int bajados = 0;
+        while (forma_puede_bajar(estado_j.forma, estado_j.mapa))
+        {
+            estado_j.forma.py++;
+            bajados++;
+        }
+        forma_cayo = 1;
+        estado_j.tick_cont = TICK_MOV_CANT;
+        juego_ganar_puntos(bajados*20);
         break;
     case GBTK_p:
         estado_j.estado_actual = JUEGO_ESTADO_PAUSADO;
@@ -221,30 +262,52 @@ void juego_actualizar_normal() //el juego normal
 
     }
 
-    if (gbt_temporizador_consumir(estado_j.tick_temp) || tecla == GBTK_ABAJO)
+    if (gbt_temporizador_consumir(estado_j.tick_temp))
+        estado_j.tick_cont--;
+
+    if (estado_j.tick_cont == 0 || tecla == GBTK_ABAJO)
     {
+
+        if (tecla == GBTK_ABAJO) juego_ganar_puntos(10);
+
+        estado_j.por_caer = 0;
         if (forma_puede_bajar(estado_j.forma, estado_j.mapa))
         {
             estado_j.forma.py++;
+            estado_j.por_caer = !forma_puede_bajar(estado_j.forma, estado_j.mapa);
         }
         else
+            forma_cayo = 1;
+
+        estado_j.tick_cont = TICK_MOV_CANT;
+    }
+
+    if (forma_cayo)
+    {
+
+        //aumentar la velocidad cada 10 piezas caidas (%3)
+        estado_j.piezas_puestas++;
+        if (estado_j.piezas_puestas >= 10)
         {
-            forma_poner_en_mapa(estado_j.forma, estado_j.mapa);
-            //revisar si se limpio una linea
-            if (juego_revisar_mapa())
-            {
-                for (int i = 0; i < estado_j.cant_lns_elmin; i++)
-                {
-                    estado_j.score += estado_j.cant_lns_elmin*1000 + i*200;
-                }
-                estado_j.score_texto[0] = '\0';
-                sprintf(estado_j.score_texto, SCORE_TEXTO_FORMATO, estado_j.score);
-                return;
-            }
-            //nota: si se limpio una linea no se va a cambiar de formas hasta que termine la animacion.
-            //esto es para que se pueda ver la siguiente forma mientras la animacion se esta ejecutando
-            juego_cambiar_formas();
+            estado_j.tiempo_caida = (int)((float)estado_j.tiempo_caida * 0.97f);
+            gbt_temporizador_destruir(estado_j.tick_temp);
+            estado_j.tick_temp = gbt_temporizador_crear(estado_j.tiempo_caida * 0.001f * 1.0f/(float)TICK_MOV_CANT);
+            estado_j.piezas_puestas = 0;
+            sprintf_s(estado_j.vel_texto, 32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
         }
+
+        forma_poner_en_mapa(estado_j.forma, estado_j.mapa);
+        //revisar si se limpio una linea
+        if (juego_revisar_mapa())
+        {
+            juego_ganar_puntos(500);
+            for (int i = 0; i < estado_j.cant_lns_elmin; i++)
+                juego_ganar_puntos( i*1000 );
+            return;
+        }
+        //nota: si se limpio una linea no se va a cambiar de formas hasta que termine la animacion.
+        //esto es para que se pueda ver la siguiente forma mientras la animacion se esta ejecutando
+        juego_cambiar_formas();
     }
 
     forma_poner_en_mapa(estado_j.forma, estado_j.mapa);
@@ -265,14 +328,16 @@ void juego_actualizar_animlineas() //la animacion de lineas eliminadas
     {
         linea = estado_j.lineas_eliminadas[i];
         int x;
-        for (x = 1; x < estado_j.mapa.ancho-1; x++)
+        for (x = 0; x < estado_j.mapa.ancho; x++)
         {
-            if (!mapa_posicion_es_vacia(mapa, x,linea))
+            unsigned char bloque = mapa_obtener_bloque(mapa, x,linea);
+            if (bloque == 1) continue;
+            if (bloque != 0)
                 break;
         }
 
         //se llego al final del mapa
-        if (x == mapa.ancho-1)
+        if (x == mapa.ancho)
         {
             mapa_eliminar_linea(mapa, linea);
             anim_terminada = 1;
@@ -285,7 +350,7 @@ void juego_actualizar_animlineas() //la animacion de lineas eliminadas
     //resumir el juego cuando termina animacion
     if (anim_terminada)
     {
-        mapa_revisar_lineas(mapa); //*REVISAR* no me acuerdo que hacia :/
+        mapa_revisar_lineas(mapa);
         estado_j.estado_actual = JUEGO_ESTADO_NORMAL;
         juego_cambiar_formas();
     }
@@ -365,6 +430,7 @@ int juego_siguiente_forma()
 
 void juego_pausa()
 {
+    /*
     //Oscurezco el fondo primero
     for (int y = 0; y < VENTANA_ALTO; y++)
         {
@@ -375,24 +441,24 @@ void juego_pausa()
                 gbt_dibujar_pixel(x,y, color_oscuro);
             }
         }
-
+*/
     //dibujo menu
-    utils_dibujar_texto(VENTANA_ANCHO-6*7,0,"pausa",15);
-    utils_dibujar_texto(VENTANA_ANCHO/2 -20,VENTANA_ALTO/2 -8,"reanudar",15);
-    utils_dibujar_texto(VENTANA_ANCHO/2 -20,VENTANA_ALTO/2,"reiniciar",15);
-    utils_dibujar_texto(VENTANA_ANCHO/2 -20,VENTANA_ALTO/2 + 8,"salir",15);
+    utils_dibujar_texto(VENTANA_ANCHO-6*7,0,"pausa",13);
+    utils_dibujar_texto(VENTANA_ANCHO/2 -20,VENTANA_ALTO/2 -8,"reanudar",13);
+    utils_dibujar_texto(VENTANA_ANCHO/2 -20,VENTANA_ALTO/2,"reiniciar",13);
+    utils_dibujar_texto(VENTANA_ANCHO/2 -20,VENTANA_ALTO/2 + 8,"salir",13);
 
     //dibujo flecha de seleccion
     switch(estado_j.menu_seleccion)
         {
         case MENU_CONTINUAR:
-            utils_dibujar_texto(VENTANA_ANCHO/2 -40,VENTANA_ALTO/2 -8,"0",15);
+            utils_dibujar_texto(VENTANA_ANCHO/2 -40,VENTANA_ALTO/2 -8,"0",13);
             break;
         case MENU_REINICIAR:
-            utils_dibujar_texto(VENTANA_ANCHO/2 -40,VENTANA_ALTO/2,"0",15);
+            utils_dibujar_texto(VENTANA_ANCHO/2 -40,VENTANA_ALTO/2,"0",13);
             break;
         case MENU_SALIR:
-            utils_dibujar_texto(VENTANA_ANCHO/2 -40,VENTANA_ALTO/2 +8,"0",15);
+            utils_dibujar_texto(VENTANA_ANCHO/2 -40,VENTANA_ALTO/2 +8,"0",13);
             break;
         }
 
@@ -454,5 +520,19 @@ void juego_perdio()
 
     global_siguiente_pantalla(PANTALLA_GAMEOVER);
     menupunt_esconder_titulo(0); //que se muestre el "GAME OVER"
+
+}
+
+void juego_ganar_puntos(int puntos)
+{
+
+    global_config_t conf = *(global_config_t*)global_obtener_config_ptr();
+
+    float div = (float)estado_j.tiempo_caida / (float)conf.velocidad;
+
+    estado_j.score += (int)( (float)puntos / div );
+
+    estado_j.score_texto[0] = '\0';
+    sprintf_s(estado_j.score_texto, 16, SCORE_TEXTO_FORMATO, estado_j.score);
 
 }
