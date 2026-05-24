@@ -143,7 +143,7 @@ void juego_iniciar()
     estado_j.score = 0;
     juego_ganar_puntos(0); //actualiza el texto de score (sin ganar puntos)
 
-    sprintf_s(estado_j.vel_texto, 32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
+    snprintf(estado_j.vel_texto, 32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
 
     if (global_usa_savefile())
         juego_cargar_savefile();
@@ -359,7 +359,7 @@ void juego_actualizar_normal() //el juego normal
             gbt_temporizador_destruir(estado_j.tick_temp);
             estado_j.tick_temp = JUEGO_TICK_TEMP;
             estado_j.piezas_puestas = 0;
-            sprintf_s(estado_j.vel_texto, 32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
+            snprintf(estado_j.vel_texto, 32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
         }
 
         forma_poner_en_mapa(estado_j.forma, estado_j.mapa);
@@ -677,7 +677,7 @@ void juego_cargar_savefile()
     juego_ganar_puntos(0);
 
     estado_j.tiempo_caida = juego_save.tiempo_caida;
-    sprintf_s(estado_j.vel_texto, sizeof(unsigned char)*32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
+    snprintf(estado_j.vel_texto, sizeof(unsigned char)*32, VEL_TEXTO_FORMATO, estado_j.tiempo_caida);
 
     estado_j.piezas_puestas = juego_save.piezas_puestas;
     estado_j.forma = juego_save.forma_actual;
@@ -722,6 +722,6 @@ void juego_ganar_puntos(int puntos)
     estado_j.score += (int)( (float)puntos * mult );
 
     estado_j.score_texto[0] = '\0';
-    sprintf_s(estado_j.score_texto, 16, SCORE_TEXTO_FORMATO, estado_j.score);
+    snprintf(estado_j.score_texto, 16, SCORE_TEXTO_FORMATO, estado_j.score);
 
 }

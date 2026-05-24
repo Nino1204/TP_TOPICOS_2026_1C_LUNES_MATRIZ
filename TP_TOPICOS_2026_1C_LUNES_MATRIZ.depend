@@ -242,3 +242,132 @@
 	"../extras/imagenes.h"
 	"GBT/gbt.h"
 
+1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+	"formas.h"
+	"../extras/utils.h"
+	"../extras/imagenes.h"
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\entidades\formas.h
+	"mapa.h"
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
+
+1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
+	"mapa.h"
+	<stdlib.h>
+	<memory.h>
+	"../extras/utils.h"
+	"../extras/imagenes.h"
+
+1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
+	"estado_global.h"
+	<stdio.h>
+	"GBT/gbt.h"
+	"utils.h"
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
+	"gbt_entrada.h"
+	"gbt_graficos.h"
+	"gbt_logger.h"
+	"gbt_temporizador.h"
+	"gbt_vector.h"
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_entrada.h
+	<stdint.h>
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_graficos.h
+	<stdint.h>
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_logger.h
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_temporizador.h
+	<stdint.h>
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt_vector.h
+	<stdlib.h>
+	<stdint.h>
+
+1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
+	"imagenes.h"
+	"GBT/gbt.h"
+
+1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
+	"utils.h"
+	<ctype.h>
+	<string.h>
+	"GBT/gbt.h"
+	"imagenes.h"
+
+1779651668 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"GBT/gbt.h"
+	"extras/imagenes.h"
+	"extras/utils.h"
+	"extras/estado_global.h"
+	"pantallas/juego.h"
+	"pantallas/menuprinc.h"
+	"pantallas/menuconf.h"
+	"pantallas/menupunt.h"
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
+	"../entidades/formas.h"
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.h
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.h
+
+1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.h
+
+1779651502 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+	"juego.h"
+	<stdio.h>
+	<memory.h>
+	"GBT/gbt.h"
+	"../extras/imagenes.h"
+	"../extras/utils.h"
+	"../extras/estado_global.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
+	"menupunt.h"
+
+1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
+	"menuconf.h"
+	"GBT/gbt.h"
+	"../extras/utils.h"
+	"../extras/estado_global.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
+	<string.h>
+	<stdio.h>
+	"menuprinc.h"
+
+1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
+	"menuprinc.h"
+	"GBT/gbt.h"
+	"../extras/utils.h"
+	"../extras/estado_global.h"
+	"../entidades/mapa.h"
+	"../entidades/formas.h"
+	"menupunt.h"
+	<stdio.h>
+	<string.h>
+	<math.h>
+
+1779651584 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.c
+	"menupunt.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../extras/estado_global.h"
+	"../extras/utils.h"
+	"../extras/imagenes.h"
+	"GBT/gbt.h"
+
