@@ -130,7 +130,7 @@ int main(int argc, char **argv)
         }
 
         gbt_volcar_backbuffer();
-        gbt_esperar(18);
+        gbt_esperar(16);
 
         corriendo = corriendo && !global_salida_es_pedida();
 

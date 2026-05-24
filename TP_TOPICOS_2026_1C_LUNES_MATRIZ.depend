@@ -304,7 +304,7 @@
 	"GBT/gbt.h"
 	"imagenes.h"
 
-1779651668 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\main.c
+1779652794 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -326,7 +326,7 @@
 
 1779650782 c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.h
 
-1779651502 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+1779653145 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
 	"juego.h"
 	<stdio.h>
 	<memory.h>

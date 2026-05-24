@@ -712,7 +712,7 @@ void juego_guardar_savefile()
 void juego_ganar_puntos(int puntos)
 {
 
-    float val_inic = (global_dificultad() == DIF_NORMAL) ? 1000.0f : 500.0f; //se gana mas puntos si esta en dificil
+    float val_inic = (global_dificultad() == DIF_NORMAL) ? 1000.0f : 800.0f; //se gana mas puntos si esta en dificil
 
     //nota: podria usarse la velocidad inicial para el calculo del bonus (conf.velocidad)
     //pero creo que el segundo estatico (1000.0f) es mejor, no se
