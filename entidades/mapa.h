@@ -2,20 +2,20 @@
 #define MAPA_H_INCLUDED
 
 #define MAPA_BLOQUE_TAM 8
-#define MAPA_POS_VACIA 0xFF
+#define MAPA_POS_VACIA 0
 
 typedef struct {
 
-    unsigned char *tablero;
+    unsigned char **tablero;
     unsigned ancho, alto;
 
 } mapa_t;
 
 mapa_t mapa_crear(unsigned _ancho, unsigned _alto);
-void mapa_poner_bloque(mapa_t mapa, unsigned posx,unsigned posy, unsigned char bloque_id);
-unsigned char mapa_obtener_bloque(mapa_t mapa, unsigned posx,unsigned posy);
+void mapa_poner_bloque(mapa_t mapa, int posx,int posy, unsigned char bloque_id);
+unsigned char mapa_obtener_bloque(mapa_t mapa, int posx,int posy);
 int mapa_es_valido(mapa_t mapa);
-int mapa_posicion_es_vacia(mapa_t mapa, unsigned posx,unsigned posy);
+int mapa_posicion_es_vacia(mapa_t mapa, int posx,int posy);
 void mapa_dibujar(mapa_t mapa, int ox,int oy); //dibujar el mapa con un origen x e y
 void mapa_dibujar_sombra(mapa_t mapa, int ox,int oy); //dibujar el mapa en negro con un origen x e y
 int mapa_linea_llena(mapa_t mapa, unsigned linea);

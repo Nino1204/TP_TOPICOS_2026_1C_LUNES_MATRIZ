@@ -1,3 +1,24 @@
+/*
+INTEGRANTES:
+
+    Apellido: Espada Rodriguez, Federico
+    DNI: 47165728
+    Usuario: Feresparo
+    Entrega: Sí
+
+    Apellido: Montanaro, Nino
+    DNI: 45870269
+    Usuario: Nino1204
+    Entrega: Sí
+
+    Rios, Tobias Joel - 38913716
+    Apellido: Rios, Tobias Joel
+    DNI: 38913716
+    Usuario: TobiasUnlam
+    Entrega: No
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,18 +33,35 @@
 #include "pantallas/menuconf.h"
 #include "pantallas/menupunt.h"
 
-#define COLOR_FONDO 79
+#define COLOR_FONDO 15
 
 void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva);
 
-int main()
+enum {
+    MAINARGS_PATH,
+    MAINARGS_RES,
+    MAINARGS_ESC
+};
+//main.c(char[]) restipo(char[3] = CGA/VGA) escala(u8)
+
+void main_leer_args(unsigned char *escala, int argc, char **argv);
+
+int main(int argc, char **argv)
 {
 
-    gbt_iniciar();
-
-    gbt_crear_ventana("TRABAJO MATRIZ", VENTANA_ANCHO,VENTANA_ALTO, 4);
+    if (gbt_iniciar())
+        printf("ERROR AL INICIAL libGBT:\n%s\n", gbt_obtener_log());
 
     global_iniciar(PANTALLA_MENUPRINC);
+
+    unsigned char v_escala;
+    main_leer_args(&v_escala, argc, argv);
+
+    //VENTANA_ALTO Y VENTANA_ANCHO definidos en estado_global.h
+    printf("iniciando tetris (%ux%ux%u)...\n", VENTANA_ANCHO,VENTANA_ALTO, v_escala);
+
+    if (gbt_crear_ventana("TRABAJO MATRIZ", VENTANA_ANCHO,VENTANA_ALTO, v_escala))
+        printf("ERROR AL CREAR VENTANA:\n%s\n", gbt_obtener_log());
 
     int corriendo = 1;
     pantalla_id pantalla;
@@ -45,6 +83,9 @@ int main()
 
         switch (pantalla)
         {
+        case PANTALLA_NADA:
+            //para warnings
+            break;
         case PANTALLA_MENUPRINC:
             menuprinc_actualizar();
             break;
@@ -63,6 +104,9 @@ int main()
 
         switch (pantalla)
         {
+        case PANTALLA_NADA:
+            //para warnings
+            break;
         case PANTALLA_MENUPRINC:
             menuprinc_dibujar();
             break;
@@ -93,7 +137,6 @@ int main()
     }
 
     pantalla_cambiada(global_obtener_pantalla_actual(), PANTALLA_NADA);
-    //juego_cerrar();
     gbt_cerrar();
 
     return 0;
@@ -105,6 +148,9 @@ void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva)
 
     switch (p_anterior)
     {
+    case PANTALLA_NADA:
+        //para warnings
+        break;
     case PANTALLA_MENUPRINC:
         menuprinc_cerrar();
         break;
@@ -121,6 +167,9 @@ void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva)
 
     switch (p_nueva)
     {
+    case PANTALLA_NADA:
+        //para warnings
+        break;
     case PANTALLA_MENUPRINC:
         menuprinc_iniciar();
         break;
@@ -134,5 +183,50 @@ void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva)
         menupunt_iniciar();
         break;
     }
+
+}
+
+void main_leer_args(unsigned char *escala, int argc, char **argv)
+{
+
+    if (argc < 3)
+    {
+        *escala = global_ventana_escala();
+        return;
+    }
+
+    char res[4];
+    strcpy_s(res, sizeof(char)*4, argv[MAINARGS_RES]);
+
+    unsigned ancho,alto;
+
+    if (!strcmp(res, "CGA"))
+    {
+        global_obtener_config_ptr()->res = RESTIPO_CGA;
+        ancho = RESCGA_ANCHO;
+        alto = RESCGA_ALTO;
+    }
+    else if (!strcmp(res, "VGA"))
+    {
+        global_obtener_config_ptr()->res = RESTIPO_VGA;
+        ancho = RESVGA_ANCHO;
+        alto = RESVGA_ALTO;
+    }
+    else
+    {
+        ancho = VENTANA_ANCHO;
+        alto = VENTANA_ALTO;
+    }
+
+    char *e_fin;
+    unsigned long esc = (unsigned long) strtoul(argv[MAINARGS_ESC], &e_fin, 10);
+    if (*e_fin != '\0' || esc == 0 || esc > 10) //si hubo un error con el arg, o es mas grande de 10
+        esc = global_ventana_escala();
+
+    *escala = (unsigned char)esc;
+
+    global_describir_ventana(ancho, alto, esc);
+
+    //el default es CGA - 2.0, se usan si hay mal argumentos
 
 }

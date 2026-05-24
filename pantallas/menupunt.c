@@ -37,6 +37,9 @@ struct {
 void menupunt_leer_puntajes();
 void menupunt_guardar_puntajes();
 
+void menupunt_input_actualizar();
+void menupunt_input_dibujar();
+
 void menupunt_iniciar()
 {
 
@@ -86,25 +89,25 @@ void menupunt_actualizar()
 void menupunt_dibujar()
 {
 
-    int texto_x, texto_y;
+    int texto_x;
 
     if (!menupunt_estado.esconder_titulo)
     {
 
         texto_x = VENTANA_ANCHO/2 - utils_ancho_de_texto("GAME OVER")/2;
-        utils_dibujar_texto(texto_x, 9, "GAME OVER", 9);
-        utils_dibujar_texto(texto_x, 8, "GAME OVER", 15);
+        utils_dibujar_texto(texto_x, 9, "GAME OVER", 14);
+        utils_dibujar_texto(texto_x, 8, "GAME OVER", 13);
 
         texto_x = VENTANA_ANCHO/2-utils_ancho_de_texto(menupunt_estado.info_texto)/2;
-        utils_dibujar_texto(texto_x,27, menupunt_estado.info_texto, 9);
-        utils_dibujar_texto(texto_x,26, menupunt_estado.info_texto, 15);
+        utils_dibujar_texto(texto_x,27, menupunt_estado.info_texto, 14);
+        utils_dibujar_texto(texto_x,26, menupunt_estado.info_texto, 13);
 
     }
     else
     {
         texto_x = VENTANA_ANCHO/2 - utils_ancho_de_texto("mejores puntajes")/2;
-        utils_dibujar_texto(texto_x,9, "mejores puntajes", 9);
-        utils_dibujar_texto(texto_x,8, "mejores puntajes", 15);
+        utils_dibujar_texto(texto_x,9, "mejores puntajes", 14);
+        utils_dibujar_texto(texto_x,8, "mejores puntajes", 13);
     }
 
     if (menupunt_estado.est_actual == MENUPUNT_INPUT)
@@ -119,16 +122,16 @@ void menupunt_dibujar()
         sprintf_s(texto, 13, "%3s : %06u", menupunt_estado.regs[i].nombre, menupunt_estado.regs[i].puntaje);
         utils_dibujar_texto(
             menupunt_estado.board_origenx,menupunt_estado.board_origeny+i*12+1,
-            texto, 9
+            texto, 14
         );
         utils_dibujar_texto(
             menupunt_estado.board_origenx,menupunt_estado.board_origeny+i*12,
-            texto, (i == menupunt_estado.ultimo_score) ? 12 : 15
+            texto, (i == menupunt_estado.ultimo_score) ? 1 : 13
         );
     }
 
-    utils_dibujar_texto(2,VENTANA_ALTO-9, "espacio: volver", 9);
-    utils_dibujar_texto(2,VENTANA_ALTO-10, "espacio: volver", 15);
+    utils_dibujar_texto(2,VENTANA_ALTO-9, "espacio: volver", 14);
+    utils_dibujar_texto(2,VENTANA_ALTO-10, "espacio: volver", 13);
 
 }
 void menupunt_cerrar()
@@ -233,18 +236,15 @@ void menupunt_input_dibujar()
     int texto_x, texto_y;
 
     texto_x = VENTANA_ANCHO/2 - utils_ancho_de_texto("GAME OVER")/2;
-    utils_dibujar_texto(texto_x, 9, "GAME OVER", 9);
-    utils_dibujar_texto(texto_x, 8, "GAME OVER", 15);
+    UTILS_TEXTO_SOMBREADO(texto_x,8, "GAME OVER")
 
     char texto[64];
     sprintf_s(texto, 32, "su puntaje fue:%06u", reg.puntaje);
     texto_x = VENTANA_ANCHO/2-utils_ancho_de_texto(texto)/2;
-    utils_dibujar_texto(texto_x,27, texto, 9);
-    utils_dibujar_texto(texto_x,26, texto, 15);
+    UTILS_TEXTO_SOMBREADO(texto_x,26,texto)
 
     texto_x = VENTANA_ANCHO/2 - utils_ancho_de_texto("ingrese su nombre:")/2;
-    utils_dibujar_texto(texto_x,VENTANA_ALTO/2-7, "ingrese su nombre:", 9);
-    utils_dibujar_texto(texto_x,VENTANA_ALTO/2-8, "ingrese su nombre:", 15);
+    UTILS_TEXTO_SOMBREADO(texto_x,VENTANA_ALTO/2-8, "ingrese su nombre:")
 
     texto_x = VENTANA_ANCHO/2 - 3*5;
     texto_y = VENTANA_ALTO/2+8;
@@ -263,11 +263,11 @@ void menupunt_input_dibujar()
         {
             utils_dibujar_char(
                 texto_x+i*10, texto_y+1, 16,
-                Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x16, cr-'a'), 9
+                Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x16, cr-'a'), 14
             );
             utils_dibujar_char(
                 texto_x+i*10, texto_y, 16,
-                Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x16, cr-'a'), 15
+                Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x16, cr-'a'), 13
             );
             continue;
         }
@@ -281,17 +281,17 @@ void menupunt_input_dibujar()
 
         utils_dibujar_char(
             texto_x+i*10, texto_y+9, 8,
-            Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x8, '?' - '0'), 9
+            Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x8, '?' - '0'), 14
         );
         utils_dibujar_char(
             texto_x+i*10, texto_y+8, 8,
-            Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x8, '?' - '0'), 15
+            Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTE8x8, '?' - '0'), 13
         );
 
     }
 
-    utils_dibujar_texto(2,VENTANA_ALTO-9, "enter: aceptar", 9);
-    utils_dibujar_texto(2,VENTANA_ALTO-10, "enter: aceptar", 15);
+    utils_dibujar_texto(2,VENTANA_ALTO-9, "enter: aceptar", 14);
+    utils_dibujar_texto(2,VENTANA_ALTO-10, "enter: aceptar", 13);
 
 }
 

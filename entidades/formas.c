@@ -46,6 +46,31 @@ unsigned char forma_desc_T[4][4] = {
     { 0,0,0,0 }
 };
 
+unsigned char forma_desc_C[4][4] = {
+    { 0,0,0,0 },
+    { 0,5,5,0 },
+    { 0,5,0,0 },
+    { 0,5,5,0 }
+};
+unsigned char forma_desc_P[4][4] = {
+    { 0,0,0,0 },
+    { 0,5,5,0 },
+    { 0,5,5,0 },
+    { 0,5,0,0 }
+};
+unsigned char forma_desc_X[4][4] = {
+    { 0,0,0,0 },
+    { 0,2,0,0 },
+    { 0,0,0,0 },
+    { 0,0,0,0 }
+};
+unsigned char forma_desc_N[4][4] = {
+    { 0,0,0,0 },
+    { 0,0,3,0 },
+    { 0,3,0,0 },
+    { 0,0,0,0 }
+};
+
 forma_t forma_crear(int px, int py, unsigned char forma_id)
 {
 
@@ -79,6 +104,18 @@ forma_t forma_crear(int px, int py, unsigned char forma_id)
     case FORMA_ID_T:
         forma_desc = forma_desc_T;
         break;
+    case FORMA_ID_C:
+        forma_desc = forma_desc_C;
+        break;
+    case FORMA_ID_P:
+        forma_desc = forma_desc_P;
+        break;
+    case FORMA_ID_X:
+        forma_desc = forma_desc_X;
+        break;
+    case FORMA_ID_N:
+        forma_desc = forma_desc_N;
+        break;
     }
 
     for (int y = 0; y < FORMA_ALTO; y++)
@@ -94,8 +131,8 @@ void forma_poner_en_mapa(forma_t forma, mapa_t mapa)
 {
 
     unsigned char bloque_id;
-    unsigned mapa_px;
-    unsigned mapa_py;
+    int mapa_px;
+    int mapa_py;
 
     for (int y = 0; y < FORMA_ALTO; y++)
     {
@@ -114,8 +151,8 @@ void forma_limpiar_de_mapa(forma_t forma, mapa_t mapa)
 {
 
     unsigned char bloque_id;
-    unsigned mapa_px;
-    unsigned mapa_py;
+    int mapa_px;
+    int mapa_py;
 
     for (int y = 0; y < FORMA_ALTO; y++)
     {
@@ -136,6 +173,7 @@ int forma_puede_bajar(forma_t forma, mapa_t mapa)
     //simular bajar (no afecta la posicion real
     forma.py++;
 
+    /*
     for (int y = 0; y < 4; y++)
     {
         for (int x = 0; x < 4; x++)
@@ -154,8 +192,9 @@ int forma_puede_bajar(forma_t forma, mapa_t mapa)
                 return 0;
         }
     }
+*/
 
-    return 1;
+    return !forma_tiene_colision(forma, mapa);
 
 }
 int forma_puede_deslizar(forma_t forma, mapa_t mapa, int dir)
@@ -166,18 +205,18 @@ int forma_puede_deslizar(forma_t forma, mapa_t mapa, int dir)
     return !forma_tiene_colision(forma, mapa);
 
 }
-int forma_puede_rotar(forma_t forma, mapa_t mapa)
+int forma_puede_rotar(forma_t forma, mapa_t mapa, signed char dir)
 {
 
     //rotamos una forma duplicada y revisamos si hay algun problema
     forma_t forma_aux = forma;
 
-    forma_rotar(&forma_aux);
+    forma_rotar(&forma_aux, dir);
 
     return !forma_tiene_colision(forma_aux, mapa);
 
 }
-void forma_rotar(forma_t *forma)
+void forma_rotar(forma_t *forma, signed char dir)
 {
 
     //copiar matriz desc a var aux
@@ -188,15 +227,31 @@ void forma_rotar(forma_t *forma)
             maux[y][x] = forma->desc[y][x];
     }
 
-    for (int x = 0; x < 4; x++)
+    if (dir == 1)
     {
-        for (int y = 3; y >= 0; y--)
+        for (int y = 0; y < 4; y++)
         {
-            int px = 3-y;
-            int py = x;
-            forma->desc[py][px] = maux[y][x];
-        }
+            for (int x = 0; x < 4; x++)
+            {
+                int px = 3-y;
+                int py = x;
+                forma->desc[py][px] = maux[y][x];
+            }
 
+        }
+    }
+    else
+    {
+        for (int y = 0; y < 4; y++)
+        {
+            for (int x = 0; x < 4; x++)
+            {
+                int px = y;
+                int py = 3-x;
+                forma->desc[py][px] = maux[y][x];
+            }
+
+        }
     }
 
 }
@@ -222,7 +277,7 @@ int forma_tiene_colision(forma_t forma, mapa_t mapa)
 {
 
     unsigned char b_id;
-    unsigned mx,my;
+    int mx,my;
 
     for (int y = 0; y < FORMA_ALTO; y++)
     {
@@ -236,7 +291,7 @@ int forma_tiene_colision(forma_t forma, mapa_t mapa)
             mx = forma.px+x;
             my = forma.py+y;
 
-            if (mx >= mapa.ancho) return 1;
+            //if (mx >= mapa.ancho) return 1;
             if (my >= mapa.alto) return 1;
 
             if (!mapa_posicion_es_vacia(mapa, mx,my))

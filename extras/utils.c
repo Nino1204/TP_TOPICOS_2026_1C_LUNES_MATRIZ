@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #include <ctype.h>
+#include <string.h>
 
 #include "GBT/gbt.h"
 
@@ -15,7 +16,6 @@ unsigned char utils_paleta_actual = 0;
 void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned char (*pixeles)[w])
 {
     unsigned char p;
-    unsigned char *paleta = Imagenes_ObtenerPixeles(IMAGENES_ID_PALETAS, utils_paleta_actual);
 
     for (int y = 0; y < h; y++)
     {
@@ -23,7 +23,7 @@ void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned cha
         {
             p = pixeles[y][x];
             if (p != utils_pixel_mascara)
-                gbt_dibujar_pixel(posx+x,posy+y, paleta[p]);
+                gbt_dibujar_pixel(posx+x,posy+y, p);
         }
     }
 }
@@ -37,7 +37,7 @@ void utils_dibujar_imagen_sombra(int posx,int posy, unsigned w,unsigned h, unsig
         {
             p = pixeles[y][x];
             if (p != utils_pixel_mascara)
-                gbt_dibujar_pixel(posx+x,posy+y, 9);
+                gbt_dibujar_pixel(posx+x,posy+y, 14);
         }
     }
 }
@@ -108,6 +108,41 @@ int utils_ancho_de_texto(const char *texto)
     }
     return ancho;
 }
+void utils_dibujar_texto_nm(int px,int py, const char *texto, unsigned char color)
+{
+
+    unsigned cursor=0;
+
+    unsigned tlen = strlen(texto);
+    char car;
+    unsigned char *cdata;
+
+    for (int i = 0; i < tlen; i++)
+    {
+        car = toupper( texto[i] );
+        cdata = Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTENMONO, car-'0');
+        utils_dibujar_char(
+            px+cursor,py, 5, cdata, color
+        );
+        cursor += Imagenes_NoMonoAncho(car)+1;
+    }
+
+}
+int utils_ancho_de_texto_nm(const char *texto) //ancho de texto no monoespaciado
+{
+    unsigned res = 0;
+
+    char car;
+    unsigned tlen = strlen(texto);
+
+    for (int i = 0; i < tlen; i++)
+    {
+        car = toupper(texto[i]);
+        res += Imagenes_NoMonoAncho(car)+1;
+    }
+
+    return res;
+}
 
 //dibuja las lineas de un cuadrado
 void utils_dibujar_cuadradolineas(int px,int py, int w,int h, unsigned char c)
@@ -137,6 +172,8 @@ void utils_dibujar_lineah(int py, int xdesde, int xhasta, unsigned char c)
 
 void utils_aplicar_paleta(unsigned char paleta)
 {
+    tGBT_ColorRGB *pcolores = (tGBT_ColorRGB*) Imagenes_ObtenerPixeles(IMAGENES_ID_PALETAS, paleta);
+    gbt_aplicar_paleta(pcolores, 18, GBT_FORMATO_888);
     utils_paleta_actual = paleta;
 }
 

@@ -23,16 +23,23 @@ enum {
     FORMA_ID_S2,
     FORMA_ID_O,
     FORMA_ID_T,
-    FORMA_ID_CANTIDAD //cantidad de tipos de formas
+    FORMA_ID_C,
+    FORMA_ID_P,
+    FORMA_ID_X,
+    FORMA_ID_N, //forma personal
+    FORMA_ID_CANTIDADDX //cantidad de tipos de formas
 };
+
+//cantidad de formas en clasico
+#define FORMA_ID_CANTIDAD FORMA_ID_C
 
 forma_t forma_crear(int px, int py, unsigned char forma_id);
 void forma_poner_en_mapa(forma_t forma, mapa_t mapa);
 void forma_limpiar_de_mapa(forma_t forma, mapa_t mapa);
 int forma_puede_bajar(forma_t forma, mapa_t mapa);
 int forma_puede_deslizar(forma_t forma, mapa_t mapa, int dir);
-int forma_puede_rotar(forma_t forma, mapa_t mapa);
-void forma_rotar(forma_t *forma);
+int forma_puede_rotar(forma_t forma, mapa_t mapa, signed char dir);
+void forma_rotar(forma_t *forma, signed char dir);
 void forma_dibujar_vistaprevia(forma_t forma);
 void forma_dibujar_sombra(forma_t forma);
 int forma_tiene_colision(forma_t forma, mapa_t mapa);
