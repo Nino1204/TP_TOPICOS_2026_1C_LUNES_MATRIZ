@@ -123,26 +123,27 @@
 
 1779580670 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.h
 
-1779591257 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
+1779648561 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\mapa.c
 	"mapa.h"
 	<stdlib.h>
 	<memory.h>
 	"../extras/utils.h"
 	"../extras/imagenes.h"
 
-1779634047 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
+1779647531 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.c
 	"imagenes.h"
 	"GBT/gbt.h"
 
 1779634060 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\imagenes.h
 
-1779633112 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
+1779647718 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.c
 	"utils.h"
 	<ctype.h>
+	<string.h>
 	"GBT/gbt.h"
 	"imagenes.h"
 
-1779630761 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
+1779647991 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\utils.h
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\include\gbt\gbt.h
 	"gbt_entrada.h"
@@ -166,7 +167,7 @@
 	<stdlib.h>
 	<stdint.h>
 
-1779646074 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
+1779647808 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -179,7 +180,7 @@
 	"pantallas/menuconf.h"
 	"pantallas/menupunt.h"
 
-1779641114 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+1779648617 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
 	"juego.h"
 	<stdio.h>
 	<memory.h>
@@ -194,26 +195,30 @@
 1779593577 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
 	"../entidades/formas.h"
 
-1779640523 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
+1779647655 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
 	"estado_global.h"
 	<stdio.h>
+	"GBT/gbt.h"
+	"utils.h"
 
 1779640482 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
 
-1779636748 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
+1779648997 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
 	"menuconf.h"
 	"GBT/gbt.h"
 	"../extras/utils.h"
 	"../extras/estado_global.h"
 	"../entidades/mapa.h"
 	"../entidades/formas.h"
+	<string.h>
+	<stdio.h>
 	"menuprinc.h"
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.h
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.h
 
-1779631291 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
+1779648429 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuprinc.c
 	"menuprinc.h"
 	"GBT/gbt.h"
 	"../extras/utils.h"
@@ -227,7 +232,7 @@
 
 1779465752 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.h
 
-1779553296 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.c
+1779647944 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menupunt.c
 	"menupunt.h"
 	<stdio.h>
 	<stdlib.h>

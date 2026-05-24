@@ -33,7 +33,7 @@ struct {
 
 } menuprinc_estado;
 
-void menuprinc_describir_boton(unsigned char b_id, char nombre[MENU_BOTON_TEXTOMAX]);
+void menuprinc_describir_boton(unsigned char b_id, char nombre[]);
 void menuprinc_boton_apretado(unsigned char b_id);
 
 void menuprinc_iniciar()
@@ -112,6 +112,9 @@ void menuprinc_actualizar()
     case GBTK_ENTER:
         menuprinc_boton_apretado(menuprinc_estado.b_actual);
         break;
+    default:
+        //para warnings
+        break;
     }
 
     menu_boton_t *boton;
@@ -184,7 +187,7 @@ void menuprinc_cerrar()
 
 }
 
-void menuprinc_describir_boton(unsigned char b_id, char nombre[MENU_BOTON_TEXTOMAX])
+void menuprinc_describir_boton(unsigned char b_id, char nombre[])
 {
 
     menu_boton_t *boton = menuprinc_estado.botones + b_id;

@@ -6,6 +6,7 @@
 void utils_dibujar_imagen(int posx,int posy, unsigned w,unsigned h, unsigned char (*pixeles)[w]);
 void utils_dibujar_imagen_sombra(int posx,int posy, unsigned w,unsigned h, unsigned char (*pixeles)[w]);
 
+void utils_dibujar_char(int px,int py, unsigned h, unsigned char *cdata, unsigned char color);
 void utils_dibujar_texto(int px,int py, const char *texto, unsigned char color);
 int utils_ancho_de_texto(const char *texto);
 void utils_dibujar_texto_nm(int px,int py, const char *texto, unsigned char color); //dibujar texto no mono espaciado

@@ -208,7 +208,7 @@ void juego_dibujar()
     for (int i = 0; i < IMGTECLAS_CANT; i++)
     {
         ty = VENTANA_ALTO/2 + 10*(i-(int)IMGTECLAS_CANT/2);
-        utils_dibujar_imagen(2,ty, 8,8, Imagenes_ObtenerPixeles(IMAGENES_ID_TECLAS, i));
+        utils_dibujar_imagen(2,ty, 8,8, (unsigned char(*)[8])Imagenes_ObtenerPixeles(IMAGENES_ID_TECLAS, i));
         utils_dibujar_texto(10,ty, teclas[i], 13);
     }
 
@@ -321,6 +321,9 @@ void juego_actualizar_normal() //el juego normal
     case GBTK_c:
         estado_j.estado_actual = JUEGO_ESTADO_CHEATS;
         estado_j.cheats_seleccion = 0;
+        break;
+    default:
+        //para warnings
         break;
     }
 
@@ -438,6 +441,9 @@ void juego_actualizar_pausa()
     case GBTK_ENTER:
         boton_presionado = estado_j.pausa_seleccion+1;
         break;
+    default:
+        //para warnings
+        break;
     }
 
     if (boton_presionado == 0) return;
@@ -499,6 +505,9 @@ void juego_actualizar_cheats()
         break;
     case GBTK_ENTER:
         boton_presionado = estado_j.cheats_seleccion+1;
+        break;
+    default:
+        //para warnings
         break;
     }
 
@@ -702,8 +711,6 @@ void juego_guardar_savefile()
 
 void juego_ganar_puntos(int puntos)
 {
-
-    global_config_t conf = *(global_config_t*)global_obtener_config_ptr();
 
     float val_inic = (global_dificultad() == DIF_NORMAL) ? 1000.0f : 500.0f; //se gana mas puntos si esta en dificil
 

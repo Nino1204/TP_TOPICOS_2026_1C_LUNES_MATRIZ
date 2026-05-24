@@ -1,6 +1,8 @@
 #include "estado_global.h"
 
 #include <stdio.h>
+#include "GBT/gbt.h"
+#include "utils.h"
 
 struct {
 

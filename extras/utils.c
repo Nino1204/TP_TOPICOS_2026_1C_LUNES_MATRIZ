@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #include <ctype.h>
+#include <string.h>
 
 #include "GBT/gbt.h"
 

@@ -37,6 +37,9 @@ struct {
 void menupunt_leer_puntajes();
 void menupunt_guardar_puntajes();
 
+void menupunt_input_actualizar();
+void menupunt_input_dibujar();
+
 void menupunt_iniciar()
 {
 
@@ -86,7 +89,7 @@ void menupunt_actualizar()
 void menupunt_dibujar()
 {
 
-    int texto_x, texto_y;
+    int texto_x;
 
     if (!menupunt_estado.esconder_titulo)
     {

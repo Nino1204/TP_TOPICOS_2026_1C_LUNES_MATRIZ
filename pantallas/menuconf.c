@@ -7,6 +7,10 @@
 #include "../entidades/mapa.h"
 #include "../entidades/formas.h"
 
+#include <string.h>
+#include <stdio.h>
+
+
 //se necesita para el struct de menu_boton_t
 #include "menuprinc.h"
 
@@ -93,6 +97,9 @@ void menuconf_actualizar()
     case GBTK_DERECHA:
         menuconf_confcambiada(menuconf_estado.boton_actual, 1);
         break;
+    default:
+        //para warnings
+        break;
     }
 
     menu_boton_t *boton;
@@ -159,26 +166,26 @@ void menuconf_describir_boton(unsigned char config_id)
     switch (config_id)
     {
     case CONFIG_VEL:
-        sprintf_s( boton->nombre, sizeof(char)*32, "< velocidad:%ums >", configuracion.velocidad );
+        sprintf( boton->nombre, "< velocidad:%ums >", configuracion.velocidad );
         break;
     case CONFIG_PAL:
-        sprintf_s( boton->nombre, sizeof(char)*32, "< paleta n%u >", configuracion.paleta+1 );
+        sprintf( boton->nombre, "< paleta n%u >", configuracion.paleta+1 );
         break;
     case CONFIG_MAPW:
-        sprintf_s( boton->nombre, sizeof(char)*32, "< columnas:%u >", configuracion.mw );
+        sprintf( boton->nombre, "< columnas:%u >", configuracion.mw );
         break;
     case CONFIG_MAPH:
-        sprintf_s( boton->nombre, sizeof(char)*32, "< filas:%u >", configuracion.mh );
+        sprintf( boton->nombre, "< filas:%u >", configuracion.mh );
         break;
     case CONFIG_RES:
-        sprintf_s( boton->nombre, sizeof(char)*32, "< resolucion:%3s >", (configuracion.res == RESTIPO_CGA) ? "cga" : "vga" );
+        sprintf( boton->nombre, "< resolucion:%3s >", (configuracion.res == RESTIPO_CGA) ? "cga" : "vga" );
         break;
     case CONFIG_MODO:
         aux = configuracion.modo_juego;
-        sprintf_s( boton->nombre, sizeof(char)*32, "< modo de juego:%s >", (aux == MODOJUEGO_CLASICO) ? "clasico" : "dx" );
+        sprintf( boton->nombre, "< modo de juego:%s >", (aux == MODOJUEGO_CLASICO) ? "clasico" : "dx" );
         break;
     case CONFIG_DIF:
-        sprintf_s( boton->nombre, sizeof(char)*32, "< dificultad:%s >", (configuracion.dificultad == DIF_NORMAL) ? "normal" : "dificil" );
+        sprintf( boton->nombre, "< dificultad:%s >", (configuracion.dificultad == DIF_NORMAL) ? "normal" : "dificil" );
         break;
     case CONFIG_ATRAS:
         strcpy(boton->nombre, "volver");
@@ -241,7 +248,10 @@ void menuconf_confcambiada(unsigned char config_id, signed char dir)
         global_actualizar_paleta();
         break;
     case CONFIG_DIF:
-        c_ptr->dificultad = c_ptr->dificultad = !c_ptr->dificultad;
+        c_ptr->dificultad = !c_ptr->dificultad;
+        break;
+    default:
+        //para warnings
         break;
     }
 

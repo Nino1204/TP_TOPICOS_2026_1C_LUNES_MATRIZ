@@ -83,6 +83,9 @@ int main(int argc, char **argv)
 
         switch (pantalla)
         {
+        case PANTALLA_NADA:
+            //para warnings
+            break;
         case PANTALLA_MENUPRINC:
             menuprinc_actualizar();
             break;
@@ -101,6 +104,9 @@ int main(int argc, char **argv)
 
         switch (pantalla)
         {
+        case PANTALLA_NADA:
+            //para warnings
+            break;
         case PANTALLA_MENUPRINC:
             menuprinc_dibujar();
             break;
@@ -142,6 +148,9 @@ void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva)
 
     switch (p_anterior)
     {
+    case PANTALLA_NADA:
+        //para warnings
+        break;
     case PANTALLA_MENUPRINC:
         menuprinc_cerrar();
         break;
@@ -158,6 +167,9 @@ void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva)
 
     switch (p_nueva)
     {
+    case PANTALLA_NADA:
+        //para warnings
+        break;
     case PANTALLA_MENUPRINC:
         menuprinc_iniciar();
         break;
