@@ -177,6 +177,12 @@ void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva)
 void main_leer_args(unsigned char *escala, int argc, char **argv)
 {
 
+    if (argc < 3)
+    {
+        *escala = global_ventana_escala();
+        return;
+    }
+
     char res[4];
     strcpy_s(res, sizeof(char)*4, argv[MAINARGS_RES]);
 
@@ -202,7 +208,7 @@ void main_leer_args(unsigned char *escala, int argc, char **argv)
 
     char *e_fin;
     unsigned long esc = (unsigned long) strtoul(argv[MAINARGS_ESC], &e_fin, 10);
-    if (*e_fin != '\0' || esc > 10) //si hubo un error con el arg, o es mas grande de 10
+    if (*e_fin != '\0' || esc == 0 || esc > 10) //si hubo un error con el arg, o es mas grande de 10
         esc = global_ventana_escala();
 
     *escala = (unsigned char)esc;
