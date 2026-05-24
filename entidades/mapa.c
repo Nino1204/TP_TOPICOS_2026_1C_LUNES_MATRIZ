@@ -178,7 +178,12 @@ void mapa_destruir(mapa_t mapa)
 {
 
     //no hacer nada si el mapa no es valido
-    if (mapa_es_valido(mapa))
-        free(mapa.tablero);
+    if (!mapa_es_valido(mapa))
+        return;
+
+    for (int y = 0; y < mapa.alto; y++)
+        free(mapa.tablero[y]);
+
+    free(mapa.tablero);
 
 }

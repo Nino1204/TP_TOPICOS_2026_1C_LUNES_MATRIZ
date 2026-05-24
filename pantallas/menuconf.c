@@ -17,6 +17,7 @@ enum {
     CONFIG_MAPH,
     CONFIG_RES,
     CONFIG_MODO,
+    CONFIG_DIF,
     CONFIG_ATRAS, //no es una configuracion, es el boton de volver, pero que se yo
     CONFIG_CANT
 };
@@ -41,7 +42,7 @@ void menuconf_describir_boton(unsigned char config_id); //setup de los botones
 void menuconf_iniciar()
 {
 
-    int config_alto = 4+CONFIG_CANT*20;
+    int config_alto = 4+CONFIG_CANT*18;
     menuconf_estado.origen_y = 8 + VENTANA_ALTO/2-config_alto/2;
 
     for (int i = 0; i < CONFIG_CANT; i++)
@@ -52,6 +53,7 @@ void menuconf_iniciar()
     CONFIG_DESCRIPCION(CONFIG_MAPH, "la cantidad de columnas que tiene el tablero");
     CONFIG_DESCRIPCION(CONFIG_MAPW, "la cantidad de filas que tiene el tablero");
     CONFIG_DESCRIPCION(CONFIG_RES, "resolucion del juego cga:320x200 vga:640x400");
+    CONFIG_DESCRIPCION(CONFIG_DIF, "dificultad del juego");
     CONFIG_DESCRIPCION(CONFIG_ATRAS, "volver al menu principal");
     CONFIG_DESCRIPCION(CONFIG_MODO, "");
 
@@ -175,6 +177,9 @@ void menuconf_describir_boton(unsigned char config_id)
         aux = configuracion.modo_juego;
         sprintf_s( boton->nombre, sizeof(char)*32, "< modo de juego:%s >", (aux == MODOJUEGO_CLASICO) ? "clasico" : "dx" );
         break;
+    case CONFIG_DIF:
+        sprintf_s( boton->nombre, sizeof(char)*32, "< dificultad:%s >", (configuracion.dificultad == DIF_NORMAL) ? "normal" : "dificil" );
+        break;
     case CONFIG_ATRAS:
         strcpy(boton->nombre, "volver");
         break;
@@ -183,7 +188,7 @@ void menuconf_describir_boton(unsigned char config_id)
     int texto_ancho = utils_ancho_de_texto(boton->nombre);
     boton->x = VENTANA_ANCHO;
     boton->objx = VENTANA_ANCHO/2-texto_ancho/2;
-    boton->y = 4+menuconf_estado.origen_y + config_id*20;
+    boton->y = 4+menuconf_estado.origen_y + config_id*18;
     boton->w = texto_ancho;
     boton->h = 16;
 
@@ -234,6 +239,9 @@ void menuconf_confcambiada(unsigned char config_id, signed char dir)
     case CONFIG_MODO:
         c_ptr->modo_juego = (c_ptr->modo_juego == MODOJUEGO_CLASICO) ? MODOJUEGO_DX : MODOJUEGO_CLASICO;
         global_actualizar_paleta();
+        break;
+    case CONFIG_DIF:
+        c_ptr->dificultad = c_ptr->dificultad = !c_ptr->dificultad;
         break;
     }
 

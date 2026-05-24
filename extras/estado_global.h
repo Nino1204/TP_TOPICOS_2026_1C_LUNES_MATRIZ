@@ -34,6 +34,11 @@ enum {
     MODOJUEGO_DX
 };
 
+enum {
+    DIF_NORMAL,
+    DIF_DIFICIL
+};
+
 typedef struct {
 
     unsigned velocidad;
@@ -41,6 +46,7 @@ typedef struct {
     unsigned char mw, mh; //cantidad de columnas y filas
     unsigned char modo_juego;
     unsigned char res;
+    unsigned char dificultad;
 
 } global_config_t;
 
@@ -81,5 +87,12 @@ unsigned char global_obtener_res();
 void global_actualizar_paleta();
 
 void global_guardar_config();
+
+//describe si usar o no el savefile al cargar el juego
+void global_usar_savefile(int si);
+int global_usa_savefile(); //devuelve si hay que usar el savefile o no
+
+//devuelve la dificultad del juego, en funcion por conveniencia
+unsigned char global_dificultad();
 
 #endif // ESTADO_GLOBAL_H_INCLUDED

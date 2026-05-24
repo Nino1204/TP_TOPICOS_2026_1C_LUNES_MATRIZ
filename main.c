@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #include "GBT/gbt.h"
 #include "extras/imagenes.h"
@@ -93,7 +92,6 @@ int main()
     }
 
     pantalla_cambiada(global_obtener_pantalla_actual(), PANTALLA_NADA);
-    //juego_cerrar();
     gbt_cerrar();
 
     return 0;

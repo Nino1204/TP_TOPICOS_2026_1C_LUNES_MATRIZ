@@ -9,10 +9,12 @@
 
 #include "menupunt.h"
 
+#include <stdio.h>
 #include <string.h>
 #include <math.h>
 
 enum {
+    MENUPRINC_CONTIN,
     MENUPRINC_JUGAR,
     MENUPRINC_CONFIG,
     MENUPRINC_PUNTAJES,
@@ -27,6 +29,7 @@ struct {
     float my;
     float temp; //usado para la animacion del titulo
     unsigned char b_actual;
+    unsigned char tiene_continuar; //si tiene boton continuar - flag
 
 } menuprinc_estado;
 
@@ -38,10 +41,18 @@ void menuprinc_iniciar()
 
     menuprinc_estado.b_actual = MENUPRINC_JUGAR;
 
+    menuprinc_describir_boton(MENUPRINC_CONTIN, "CONTINUAR");
     menuprinc_describir_boton(MENUPRINC_JUGAR, "JUGAR");
     menuprinc_describir_boton(MENUPRINC_CONFIG, "CONFIGURACION");
     menuprinc_describir_boton(MENUPRINC_PUNTAJES, "PUNTAJES");
     menuprinc_describir_boton(MENUPRINC_SALIR, "SALIR");
+
+    //me fijo si existe un savefile
+
+    FILE *fs = fopen("save.dat", "rb");
+    menuprinc_estado.tiene_continuar = fs != NULL;
+    if (fs != NULL)
+        fclose(fs);
 
     //---TITULO---
 
@@ -137,25 +148,33 @@ void menuprinc_dibujar()
     );
 
     menu_boton_t *boton;
+    unsigned char color;
 
     for (int i = 0; i < MENUPRINC_OPCANT; i++)
     {
 
         boton = menuprinc_estado.botones + i;
+        color = (i==MENUPRINC_CONTIN && !menuprinc_estado.tiene_continuar) ? 12 : 13;
 
         utils_dibujar_texto(boton->x,boton->y+1, boton->nombre, 14);
-        utils_dibujar_texto(boton->x,boton->y, boton->nombre, 13);
+        utils_dibujar_texto(boton->x, boton->y, boton->nombre, color);
 
         if (i == menuprinc_estado.b_actual)
         {
             utils_dibujar_cuadradolineas(
                 boton->x-2, boton->y-2,
                 boton->w+3, 19,
-                13
+                color
             );
         }
 
     }
+
+    global_config_t *conf = global_obtener_config_ptr();
+    if (conf->modo_juego == MODOJUEGO_CLASICO)
+        utils_dibujar_texto_nm(1,1,"clasico", 13);
+    else
+        utils_dibujar_texto_nm(1,1,"dx", 13);
 
 }
 void menuprinc_cerrar()
@@ -175,7 +194,7 @@ void menuprinc_describir_boton(unsigned char b_id, char nombre[MENU_BOTON_TEXTOM
     boton->w = utils_ancho_de_texto(nombre);
 
     px = VENTANA_ANCHO*0.5f - boton->w*0.5f;
-    py = VENTANA_ALTO*0.5f + b_id*20.0f;
+    py = VENTANA_ALTO*0.5f-8 + b_id*20.0f;
 
     boton->x = 0;
     boton->objx = (unsigned short)px;
@@ -194,8 +213,18 @@ void menuprinc_boton_apretado(unsigned char b_id)
 
     switch (b_id)
     {
+    case MENUPRINC_CONTIN:
+        //ir al juego, cargando lo guardado
+        if (menuprinc_estado.tiene_continuar)
+        {
+            global_siguiente_pantalla(PANTALLA_JUEGO);
+            global_usar_savefile(1);
+        }
+        break;
     case MENUPRINC_JUGAR:
+        //ir al juego, empezado de cero
         global_siguiente_pantalla(PANTALLA_JUEGO);
+        global_usar_savefile(0);
         break;
     case MENUPRINC_CONFIG:
         global_siguiente_pantalla(PANTALLA_MENUCONF);

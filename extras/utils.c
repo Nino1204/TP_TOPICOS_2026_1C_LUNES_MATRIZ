@@ -107,6 +107,41 @@ int utils_ancho_de_texto(const char *texto)
     }
     return ancho;
 }
+void utils_dibujar_texto_nm(int px,int py, const char *texto, unsigned char color)
+{
+
+    unsigned cursor=0;
+
+    unsigned tlen = strlen(texto);
+    char car;
+    unsigned char *cdata;
+
+    for (int i = 0; i < tlen; i++)
+    {
+        car = toupper( texto[i] );
+        cdata = Imagenes_ObtenerPixeles(IMAGENES_ID_FUENTENMONO, car-'0');
+        utils_dibujar_char(
+            px+cursor,py, 5, cdata, color
+        );
+        cursor += Imagenes_NoMonoAncho(car)+1;
+    }
+
+}
+int utils_ancho_de_texto_nm(const char *texto) //ancho de texto no monoespaciado
+{
+    unsigned res = 0;
+
+    char car;
+    unsigned tlen = strlen(texto);
+
+    for (int i = 0; i < tlen; i++)
+    {
+        car = toupper(texto[i]);
+        res += Imagenes_NoMonoAncho(car)+1;
+    }
+
+    return res;
+}
 
 //dibuja las lineas de un cuadrado
 void utils_dibujar_cuadradolineas(int px,int py, int w,int h, unsigned char c)

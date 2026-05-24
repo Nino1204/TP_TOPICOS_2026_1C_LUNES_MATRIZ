@@ -13,6 +13,7 @@ struct {
     int vancho, valto;
 
     unsigned char salida_en_fila;
+    unsigned char usa_savefile; //si el juego va a ser continuado o no
 
 } global_estado;
 
@@ -30,6 +31,8 @@ void global_iniciar(pantalla_id p_inicial)
     global_estado.puntaje_actual.nombre[0] = '?';
     global_estado.puntaje_actual.nombre[1] = '?';
     global_estado.puntaje_actual.nombre[2] = '?';
+
+    global_estado.usa_savefile = 0;
 
     global_leer_config();
 
@@ -153,11 +156,12 @@ void global_leer_config()
     {
         global_config_t *conf = &global_estado.config;
         conf->paleta = 0;
-        conf->velocidad = 1000; //1.0s
+        conf->velocidad = 500; //0.5s
         conf->mw = 10;
         conf->mh = 20;
         conf->modo_juego = MODOJUEGO_CLASICO;
         conf->res = RESTIPO_CGA;
+        conf->dificultad = DIF_NORMAL;
         return;
     }
 
@@ -178,4 +182,18 @@ void global_guardar_config()
 
     fclose(file);
 
+}
+
+void global_usar_savefile(int si)
+{
+    global_estado.usa_savefile = si;
+}
+int global_usa_savefile()
+{
+    return global_estado.usa_savefile;
+}
+
+unsigned char global_dificultad()
+{
+    return global_estado.config.dificultad;
 }
