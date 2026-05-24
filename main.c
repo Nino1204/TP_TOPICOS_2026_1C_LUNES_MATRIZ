@@ -1,6 +1,21 @@
 /*
+INTEGRANTES:
 
-    Montanaro, Nino
+    Apellido: Espada Rodriguez, Federico
+    DNI: 47165728
+    Usuario: Feresparo
+    Entrega: Sí
+
+    Apellido: Montanaro, Nino
+    DNI: 45870269
+    Usuario: Nino1204
+    Entrega: Sí
+
+    Rios, Tobias Joel - 38913716
+    Apellido: Rios, Tobias Joel
+    DNI: 38913716
+    Usuario: TobiasUnlam
+    Entrega: No
 
 */
 
