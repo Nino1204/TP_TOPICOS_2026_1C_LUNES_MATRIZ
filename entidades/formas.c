@@ -64,6 +64,12 @@ unsigned char forma_desc_X[4][4] = {
     { 0,0,0,0 },
     { 0,0,0,0 }
 };
+unsigned char forma_desc_N[4][4] = {
+    { 0,0,0,0 },
+    { 0,0,3,0 },
+    { 0,3,0,0 },
+    { 0,0,0,0 }
+};
 
 forma_t forma_crear(int px, int py, unsigned char forma_id)
 {
@@ -106,6 +112,9 @@ forma_t forma_crear(int px, int py, unsigned char forma_id)
         break;
     case FORMA_ID_X:
         forma_desc = forma_desc_X;
+        break;
+    case FORMA_ID_N:
+        forma_desc = forma_desc_N;
         break;
     }
 

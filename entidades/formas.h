@@ -26,6 +26,7 @@ enum {
     FORMA_ID_C,
     FORMA_ID_P,
     FORMA_ID_X,
+    FORMA_ID_N, //forma personal
     FORMA_ID_CANTIDADDX //cantidad de tipos de formas
 };
 
