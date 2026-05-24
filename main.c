@@ -21,16 +21,15 @@ int main()
 
     gbt_iniciar();
 
-    gbt_crear_ventana("TRABAJO MATRIZ", RESCGA_ANCHO,RESCGA_ALTO, RESCGA_ESCALA);
-
     global_iniciar(PANTALLA_MENUPRINC);
+
+    gbt_crear_ventana("TRABAJO MATRIZ", VENTANA_ANCHO,VENTANA_ALTO, global_ventana_escala());
 
     int corriendo = 1;
     pantalla_id pantalla;
     pantalla_id pantalla_sig;
 
     utils_set_pixel_mascara(0xFF);
-    utils_aplicar_paleta(0);
 
     while (corriendo)
     {

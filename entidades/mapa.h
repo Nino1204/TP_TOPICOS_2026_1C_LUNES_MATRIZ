@@ -6,7 +6,7 @@
 
 typedef struct {
 
-    unsigned char *tablero;
+    unsigned char **tablero;
     unsigned ancho, alto;
 
 } mapa_t;

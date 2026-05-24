@@ -23,8 +23,14 @@ enum {
     FORMA_ID_S2,
     FORMA_ID_O,
     FORMA_ID_T,
-    FORMA_ID_CANTIDAD //cantidad de tipos de formas
+    FORMA_ID_C,
+    FORMA_ID_P,
+    FORMA_ID_X,
+    FORMA_ID_CANTIDADDX //cantidad de tipos de formas
 };
+
+//cantidad de formas en clasico
+#define FORMA_ID_CANTIDAD FORMA_ID_C
 
 forma_t forma_crear(int px, int py, unsigned char forma_id);
 void forma_poner_en_mapa(forma_t forma, mapa_t mapa);

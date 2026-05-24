@@ -86,16 +86,21 @@ void juego_iniciar()
 
     global_config_t conf = *(global_config_t*) global_obtener_config_ptr();
 
+    if (conf.modo_juego == MODOJUEGO_CLASICO) conf.mw += 2;
+
     estado_j.mapa = mapa_crear(conf.mw, conf.mh);
     estado_j.mapa_origenx = VENTANA_ANCHO/2-conf.mw*MAPA_BLOQUE_TAM/2;
     estado_j.mapa_origeny = VENTANA_ALTO-conf.mh*MAPA_BLOQUE_TAM;
     estado_j.menu_seleccion = MENU_CONTINUAR;
 
-    //poner las paredes verticales
-    for (int y = 0; y < conf.mh; y++)
+    if (conf.modo_juego == MODOJUEGO_CLASICO)
     {
-        mapa_poner_bloque(estado_j.mapa, 0,y, 1);
-        mapa_poner_bloque(estado_j.mapa, conf.mw-1,y, 1);
+        //poner las paredes verticales
+        for (int y = 0; y < conf.mh; y++)
+        {
+            mapa_poner_bloque(estado_j.mapa, 0,y, 1);
+            mapa_poner_bloque(estado_j.mapa, conf.mw-1,y, 1);
+        }
     }
 
     //datos para el algoritmo de siguiente pieza
@@ -389,7 +394,10 @@ void juego_cambiar_formas()
 int juego_siguiente_forma()
 {
 
-    unsigned char sig_forma_id = rand()%FORMA_ID_CANTIDAD;
+    unsigned cant = FORMA_ID_CANTIDAD;
+    if (global_obtener_config_ptr()->modo_juego == MODOJUEGO_DX)
+        cant = FORMA_ID_CANTIDADDX;
+    unsigned char sig_forma_id = rand()%cant;
 
     //en el caso que haya estado intentando durante muchos frames,
     //directamente devuelvo la primera opcion
@@ -408,7 +416,7 @@ int juego_siguiente_forma()
     for (int i = 0; i < JUEGO_MAX_FORMAS_USADAS; i++)
     {
         if (f_anteriores[i] == sig_forma_id)
-            chances += (JUEGO_MAX_FORMAS_USADAS-i)*2;
+            chances += (JUEGO_MAX_FORMAS_USADAS-i)*4;
     }
 
     //las posibilidades de que se acepte esta forma son 1 en [chances]

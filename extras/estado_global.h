@@ -40,6 +40,7 @@ typedef struct {
     unsigned char paleta;
     unsigned char mw, mh; //cantidad de columnas y filas
     unsigned char modo_juego;
+    unsigned char res;
 
 } global_config_t;
 
@@ -68,6 +69,7 @@ enum {
 
 int global_ventana_ancho();
 int global_ventana_alto();
+int global_ventana_escala();
 
 #define VENTANA_ANCHO global_ventana_ancho()
 #define VENTANA_ALTO global_ventana_alto()
@@ -75,5 +77,9 @@ int global_ventana_alto();
 //cambia al otro tipo de resolucion
 void global_cambiar_resolucion();
 unsigned char global_obtener_res();
+
+void global_actualizar_paleta();
+
+void global_guardar_config();
 
 #endif // ESTADO_GLOBAL_H_INCLUDED

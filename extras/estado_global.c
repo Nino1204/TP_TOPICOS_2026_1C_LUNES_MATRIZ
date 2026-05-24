@@ -1,8 +1,9 @@
 #include "estado_global.h"
 
+#include <stdio.h>
+
 struct {
 
-    puntajereg_t puntajes_registros[ESTADO_GLOBAL_MAXPUNTS];
     puntajereg_t puntaje_actual;
     pantalla_id p_actual, p_siguiente;
 
@@ -14,6 +15,8 @@ struct {
     unsigned char salida_en_fila;
 
 } global_estado;
+
+void global_leer_config();
 
 void global_iniciar(pantalla_id p_inicial)
 {
@@ -28,25 +31,20 @@ void global_iniciar(pantalla_id p_inicial)
     global_estado.puntaje_actual.nombre[1] = '?';
     global_estado.puntaje_actual.nombre[2] = '?';
 
-    for (int i = 0; i < ESTADO_GLOBAL_MAXPUNTS; i++)
+    global_leer_config();
+
+    if (global_estado.config.res == RESTIPO_CGA)
     {
-        global_estado.puntajes_registros[i].puntaje = 0;
-        //nombre = '---'
-        global_estado.puntajes_registros[i].nombre[0] = '?';
-        global_estado.puntajes_registros[i].nombre[1] = '?';
-        global_estado.puntajes_registros[i].nombre[2] = '?';
+        global_estado.vancho = RESCGA_ANCHO;
+        global_estado.valto = RESCGA_ALTO;
+    }
+    else
+    {
+        global_estado.vancho = RESVGA_ANCHO;
+        global_estado.valto = RESVGA_ALTO;
     }
 
-    global_config_t *cnf = &global_estado.config;
-    cnf->paleta = 0;
-    cnf->velocidad = 1000; //1.0s
-    cnf->mw = 10;
-    cnf->mh = 20;
-    cnf->modo_juego = MODOJUEGO_CLASICO;
-
-    global_estado.res_actual = RESTIPO_CGA;
-    global_estado.vancho = RESCGA_ANCHO;
-    global_estado.valto = RESCGA_ALTO;
+    global_actualizar_paleta();
 
 }
 
@@ -71,33 +69,6 @@ void global_cambiar_pantallas()
 {
     global_estado.p_actual = global_estado.p_siguiente;
     global_estado.p_siguiente = PANTALLA_NADA;
-}
-
-void global_registar_puntaje(unsigned puntaje, char nombre[3])
-{
-
-    puntajereg_t *reg1;
-    puntajereg_t *reg2;
-
-    for (int i = 0; i < ESTADO_GLOBAL_MAXPUNTS; i++)
-    {
-        puntajereg_t *reg1 = global_estado.puntajes_registros + i;
-        if (puntaje < reg1->puntaje) continue;
-        for (int j = ESTADO_GLOBAL_MAXPUNTS-1; j > i; j--)
-        {
-            reg2 = global_estado.puntajes_registros + j;
-            *reg2 = *(reg2 - 1);
-        }
-        reg1->puntaje = puntaje;
-        strcpy_s(reg1->nombre, sizeof(char) * 3, nombre);
-    }
-
-}
-puntajereg_t* global_obtener_puntajes()
-{
-
-    return global_estado.puntajes_registros;
-
 }
 
 global_config_t *global_obtener_config_ptr()
@@ -131,6 +102,10 @@ int global_ventana_alto()
 {
     return global_estado.valto;
 }
+int global_ventana_escala()
+{
+    return (global_estado.config.res == RESTIPO_CGA) ? RESCGA_ESCALA : RESVGA_ESCALA;
+}
 
 void global_cambiar_resolucion()
 {
@@ -138,17 +113,16 @@ void global_cambiar_resolucion()
     unsigned vancho, valto;
     unsigned char vescala;
 
-    if (global_estado.res_actual == RESTIPO_CGA)
+    unsigned char res = global_estado.config.res;
+    if (res == RESTIPO_VGA)
     {
         vancho = RESVGA_ANCHO; valto = RESVGA_ALTO;
         vescala = RESVGA_ESCALA;
-        global_estado.res_actual = RESTIPO_VGA;
     }
     else
     {
         vancho = RESCGA_ANCHO; valto = RESCGA_ALTO;
         vescala = RESCGA_ESCALA;
-        global_estado.res_actual = RESTIPO_CGA;
     }
 
     global_estado.vancho = vancho;
@@ -161,4 +135,47 @@ void global_cambiar_resolucion()
 unsigned char global_obtener_res()
 {
     return global_estado.res_actual;
+}
+
+void global_actualizar_paleta()
+{
+    unsigned char paleta_id = global_estado.config.paleta;
+    if (global_estado.config.modo_juego == MODOJUEGO_DX) paleta_id += 3;
+    utils_aplicar_paleta(paleta_id);
+}
+
+void global_leer_config()
+{
+
+    FILE *file = fopen("config.dat", "rb");
+
+    if (file == NULL)
+    {
+        global_config_t *conf = &global_estado.config;
+        conf->paleta = 0;
+        conf->velocidad = 1000; //1.0s
+        conf->mw = 10;
+        conf->mh = 20;
+        conf->modo_juego = MODOJUEGO_CLASICO;
+        conf->res = RESTIPO_CGA;
+        return;
+    }
+
+    fread(&global_estado.config, sizeof(global_config_t), 1, file);
+
+    fclose(file);
+
+}
+void global_guardar_config()
+{
+
+    FILE *file = fopen("config.dat", "wb");
+
+    if (file == NULL)
+        return;
+
+    fwrite(&global_estado.config, sizeof(global_config_t), 1, file);
+
+    fclose(file);
+
 }

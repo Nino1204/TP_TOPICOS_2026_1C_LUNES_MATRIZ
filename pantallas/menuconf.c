@@ -16,6 +16,7 @@ enum {
     CONFIG_MAPW,
     CONFIG_MAPH,
     CONFIG_RES,
+    CONFIG_MODO,
     CONFIG_ATRAS, //no es una configuracion, es el boton de volver, pero que se yo
     CONFIG_CANT
 };
@@ -52,6 +53,7 @@ void menuconf_iniciar()
     CONFIG_DESCRIPCION(CONFIG_MAPW, "la cantidad de filas que tiene el tablero");
     CONFIG_DESCRIPCION(CONFIG_RES, "resolucion del juego cga:320x200 vga:640x400");
     CONFIG_DESCRIPCION(CONFIG_ATRAS, "volver al menu principal");
+    CONFIG_DESCRIPCION(CONFIG_MODO, "");
 
     menuconf_estado.boton_actual = 0;
     CONFIG_NUEVADESC;
@@ -78,7 +80,10 @@ void menuconf_actualizar()
         break;
     case GBTK_ENTER:
         if (menuconf_estado.boton_actual == CONFIG_ATRAS)
+        {
             global_siguiente_pantalla(PANTALLA_MENUPRINC);
+            global_guardar_config();
+        }
         break;
     case GBTK_IZQUIERDA:
         menuconf_confcambiada(menuconf_estado.boton_actual, -1);
@@ -164,8 +169,11 @@ void menuconf_describir_boton(unsigned char config_id)
         sprintf_s( boton->nombre, sizeof(char)*32, "< filas:%u >", configuracion.mh );
         break;
     case CONFIG_RES:
-        aux = global_obtener_res();
-        sprintf_s( boton->nombre, sizeof(char)*32, "< resolucion:%3s >", (aux == RESTIPO_CGA) ? "cga" : "vga" );
+        sprintf_s( boton->nombre, sizeof(char)*32, "< resolucion:%3s >", (configuracion.res == RESTIPO_CGA) ? "cga" : "vga" );
+        break;
+    case CONFIG_MODO:
+        aux = configuracion.modo_juego;
+        sprintf_s( boton->nombre, sizeof(char)*32, "< modo de juego:%s >", (aux == MODOJUEGO_CLASICO) ? "clasico" : "dx" );
         break;
     case CONFIG_ATRAS:
         strcpy(boton->nombre, "volver");
@@ -202,7 +210,7 @@ void menuconf_confcambiada(unsigned char config_id, signed char dir)
         if (nuevo < 0) nuevo += 3;
         nuevo = nuevo%3;
         c_ptr->paleta = nuevo;
-        utils_aplicar_paleta(c_ptr->paleta);
+        global_actualizar_paleta();
         break;
     case CONFIG_MAPW:
         nuevo = (int)c_ptr->mw + (int)dir;
@@ -217,10 +225,15 @@ void menuconf_confcambiada(unsigned char config_id, signed char dir)
         c_ptr->mh = (unsigned)nuevo;
         break;
     case CONFIG_RES:
+        c_ptr->res = !c_ptr->res;
         global_cambiar_resolucion();
         //directamente reiniciar
         menuconf_cerrar(); //no hace nada pero bueno, nunca se sabe
         menuconf_iniciar();
+        break;
+    case CONFIG_MODO:
+        c_ptr->modo_juego = (c_ptr->modo_juego == MODOJUEGO_CLASICO) ? MODOJUEGO_DX : MODOJUEGO_CLASICO;
+        global_actualizar_paleta();
         break;
     }
 
