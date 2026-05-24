@@ -45,7 +45,7 @@ void menupunt_iniciar()
 
     puntajereg_t reg_actual = *(puntajereg_t*)global_obtener_puntaje_ptr();
 
-    sprintf_s(menupunt_estado.info_texto, 32, "su puntaje fue:%06u", reg_actual.puntaje);
+    snprintf(menupunt_estado.info_texto, 32, "su puntaje fue:%06u", reg_actual.puntaje);
 
     menupunt_leer_puntajes();
 
@@ -239,7 +239,7 @@ void menupunt_input_dibujar()
     UTILS_TEXTO_SOMBREADO(texto_x,8, "GAME OVER")
 
     char texto[64];
-    sprintf_s(texto, 32, "su puntaje fue:%06u", reg.puntaje);
+    snprintf(texto, 32, "su puntaje fue:%06u", reg.puntaje);
     texto_x = VENTANA_ANCHO/2-utils_ancho_de_texto(texto)/2;
     UTILS_TEXTO_SOMBREADO(texto_x,26,texto)
 
