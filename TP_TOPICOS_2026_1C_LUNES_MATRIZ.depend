@@ -242,7 +242,7 @@
 	"../extras/imagenes.h"
 	"GBT/gbt.h"
 
-1779650782 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+1779654540 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
 	"formas.h"
 	"../extras/utils.h"
 	"../extras/imagenes.h"
@@ -304,7 +304,7 @@
 	"GBT/gbt.h"
 	"imagenes.h"
 
-1779652794 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\main.c
+1779654540 source:c:\users\espad\onedrive\documentos\tetris carpeta\dev b\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

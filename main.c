@@ -11,7 +11,6 @@ INTEGRANTES:
     Usuario: Nino1204
     Entrega: Sí
 
-    Rios, Tobias Joel - 38913716
     Apellido: Rios, Tobias Joel
     DNI: 38913716
     Usuario: TobiasUnlam

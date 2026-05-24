@@ -80,7 +80,7 @@ forma_t forma_crear(int px, int py, unsigned char forma_id)
     forma.py = py;
     forma.f_id = forma_id;
 
-    unsigned char (*forma_desc)[4];
+    unsigned char (*forma_desc)[4] = {0};
     switch (forma_id)
     {
     case FORMA_ID_L:
