@@ -520,11 +520,13 @@ void juego_actualizar_cheats()
             for (int x = 0; x < estado_j.mapa.ancho; x++)
                 if (tab[x] != 1) tab[x] = 0;
         }
+        estado_j.estado_actual = JUEGO_ESTADO_NORMAL;
         break;
     case CHEATS_FOR:
         int fx = estado_j.forma_sig.px;
         int fy = estado_j.forma_sig.py;
         estado_j.forma_sig = forma_crear(fx,fy,juego_siguiente_forma());
+        estado_j.estado_actual = JUEGO_ESTADO_NORMAL;
         break;
     case CHEATS_VOLVER:
         estado_j.estado_actual = JUEGO_ESTADO_NORMAL;

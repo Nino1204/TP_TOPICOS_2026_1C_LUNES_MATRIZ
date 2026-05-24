@@ -1,5 +1,12 @@
+/*
+
+    Montanaro, Nino
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "GBT/gbt.h"
 #include "extras/imagenes.h"
@@ -15,14 +22,31 @@
 
 void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva);
 
-int main()
+enum {
+    MAINARGS_PATH,
+    MAINARGS_RES,
+    MAINARGS_ESC
+};
+//main.c(char[]) restipo(char[3] = CGA/VGA) escala(u8)
+
+void main_leer_args(unsigned char *escala, int argc, char **argv);
+
+int main(int argc, char **argv)
 {
 
-    gbt_iniciar();
+    if (gbt_iniciar())
+        printf("ERROR AL INICIAL libGBT:\n%s\n", gbt_obtener_log());
 
     global_iniciar(PANTALLA_MENUPRINC);
 
-    gbt_crear_ventana("TRABAJO MATRIZ", VENTANA_ANCHO,VENTANA_ALTO, global_ventana_escala());
+    unsigned char v_escala;
+    main_leer_args(&v_escala, argc, argv);
+
+    //VENTANA_ALTO Y VENTANA_ANCHO definidos en estado_global.h
+    printf("iniciando tetris (%ux%ux%u)...\n", VENTANA_ANCHO,VENTANA_ALTO, v_escala);
+
+    if (gbt_crear_ventana("TRABAJO MATRIZ", VENTANA_ANCHO,VENTANA_ALTO, v_escala))
+        printf("ERROR AL CREAR VENTANA:\n%s\n", gbt_obtener_log());
 
     int corriendo = 1;
     pantalla_id pantalla;
@@ -132,5 +156,44 @@ void pantalla_cambiada(pantalla_id p_anterior, pantalla_id p_nueva)
         menupunt_iniciar();
         break;
     }
+
+}
+
+void main_leer_args(unsigned char *escala, int argc, char **argv)
+{
+
+    char res[4];
+    strcpy_s(res, sizeof(char)*4, argv[MAINARGS_RES]);
+
+    unsigned ancho,alto;
+
+    if (!strcmp(res, "CGA"))
+    {
+        global_obtener_config_ptr()->res = RESTIPO_CGA;
+        ancho = RESCGA_ANCHO;
+        alto = RESCGA_ALTO;
+    }
+    else if (!strcmp(res, "VGA"))
+    {
+        global_obtener_config_ptr()->res = RESTIPO_VGA;
+        ancho = RESVGA_ANCHO;
+        alto = RESVGA_ALTO;
+    }
+    else
+    {
+        ancho = VENTANA_ANCHO;
+        alto = VENTANA_ALTO;
+    }
+
+    char *e_fin;
+    unsigned long esc = (unsigned long) strtoul(argv[MAINARGS_ESC], &e_fin, 10);
+    if (*e_fin != '\0' || esc > 10) //si hubo un error con el arg, o es mas grande de 10
+        esc = global_ventana_escala();
+
+    *escala = (unsigned char)esc;
+
+    global_describir_ventana(ancho, alto, esc);
+
+    //el default es CGA - 2.0, se usan si hay mal argumentos
 
 }

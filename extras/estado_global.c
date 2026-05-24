@@ -109,6 +109,11 @@ int global_ventana_escala()
 {
     return (global_estado.config.res == RESTIPO_CGA) ? RESCGA_ESCALA : RESVGA_ESCALA;
 }
+void global_describir_ventana(unsigned ancho, unsigned alto, unsigned escala)
+{
+    global_estado.vancho = ancho;
+    global_estado.valto = alto;
+}
 
 void global_cambiar_resolucion()
 {

@@ -113,7 +113,7 @@
 
 1778450248 c:\users\espad\onedrive\documentos\tetris carpeta\tp_topicos_2026_1c_lunes_matriz\juego.h
 
-1779578288 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
+1779637632 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\entidades\formas.c
 	"formas.h"
 	"../extras/utils.h"
 	"../extras/imagenes.h"
@@ -166,9 +166,10 @@
 	<stdlib.h>
 	<stdint.h>
 
-1779631224 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
+1779640802 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\main.c
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
 	"GBT/gbt.h"
 	"extras/imagenes.h"
 	"extras/utils.h"
@@ -178,7 +179,7 @@
 	"pantallas/menuconf.h"
 	"pantallas/menupunt.h"
 
-1779637106 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
+1779641114 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.c
 	"juego.h"
 	<stdio.h>
 	<memory.h>
@@ -193,11 +194,11 @@
 1779593577 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\juego.h
 	"../entidades/formas.h"
 
-1779636875 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
+1779640523 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.c
 	"estado_global.h"
 	<stdio.h>
 
-1779636854 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
+1779640482 c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\extras\estado_global.h
 
 1779636748 source:c:\users\windows 10\downloads\tp_topicos_2026_1c_lunes_matriz\pantallas\menuconf.c
 	"menuconf.h"

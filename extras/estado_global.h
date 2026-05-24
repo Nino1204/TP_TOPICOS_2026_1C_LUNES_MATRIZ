@@ -76,6 +76,7 @@ enum {
 int global_ventana_ancho();
 int global_ventana_alto();
 int global_ventana_escala();
+void global_describir_ventana(unsigned ancho, unsigned alto, unsigned escala);
 
 #define VENTANA_ANCHO global_ventana_ancho()
 #define VENTANA_ALTO global_ventana_alto()
